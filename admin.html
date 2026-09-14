@@ -1,0 +1,540 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>智研平台 - 体验申请管理</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --blue-500:#2E7EFF; --blue-600:#1366F0; --blue-700:#0B4FBD;
+  --gray-50:#F9FAFB; --gray-100:#F3F4F6; --gray-200:#E5E7EB;
+  --gray-300:#D1D5DB; --gray-500:#6B7280; --gray-600:#4B5563;
+  --gray-700:#374151; --gray-800:#1F2937; --gray-900:#111827;
+  --orange-100:#FFF7ED; --orange-500:#F97316;
+}
+*{box-sizing:border-box; margin:0; padding:0}
+body{
+  font-family:"Noto Sans SC",-apple-system,sans-serif;
+  font-size:14px; background:var(--gray-50); color:var(--gray-800);
+}
+.login-screen{
+  min-height:100vh; display:flex; align-items:center; justify-content:center;
+  background:linear-gradient(135deg,var(--blue-600),var(--blue-700));
+}
+.login-box{
+  background:#fff; border-radius:12px; padding:48px 40px;
+  width:100%; max-width:400px; box-shadow:0 20px 60px rgba(0,0,0,.3);
+}
+.login-title{font-size:24px; font-weight:700; margin-bottom:8px; text-align:center}
+.login-subtitle{color:var(--gray-600); margin-bottom:32px; text-align:center}
+.form-group{margin-bottom:20px}
+.form-label{display:block; font-weight:600; margin-bottom:8px}
+.form-input{
+  width:100%; padding:10px 14px; border:1px solid var(--gray-300);
+  border-radius:6px; font-size:14px; font-family:inherit;
+}
+.form-input:focus{outline:none; border-color:var(--blue-600)}
+.btn-login{
+  width:100%; padding:12px; background:var(--blue-600); color:#fff;
+  border:none; border-radius:6px; font-size:16px; font-weight:600;
+  cursor:pointer; transition:all .2s;
+}
+.btn-login:hover{background:var(--blue-700)}
+.error{color:#EF4444; font-size:13px; margin-top:8px}
+.app{display:none}
+.app.active{display:flex; min-height:100vh}
+.sidebar{
+  width:240px; background:#fff; border-right:1px solid var(--gray-200);
+  padding:24px 0; flex-shrink:0; position:relative;
+}
+.sidebar-brand{
+  padding:0 24px 24px; border-bottom:1px solid var(--gray-200);
+  font-size:18px; font-weight:700; color:var(--gray-900);
+}
+.sidebar-nav{list-style:none; padding:16px 0}
+.sidebar-nav a{
+  display:flex; align-items:center; gap:12px; padding:12px 24px;
+  text-decoration:none; color:var(--gray-700); transition:all .2s;
+}
+.sidebar-nav a:hover,.sidebar-nav a.active{background:var(--blue-50); color:var(--blue-600)}
+.sidebar-user{
+  position:absolute; bottom:24px; left:24px; right:24px;
+  padding:16px 0; border-top:1px solid var(--gray-200);
+  font-size:13px; color:var(--gray-600);
+}
+.sidebar-user-info{margin-bottom:12px}
+.btn-logout{
+  width:100%; padding:8px 12px; background:var(--gray-100);
+  border:1px solid var(--gray-200); border-radius:6px;
+  color:var(--gray-700); font-size:13px; cursor:pointer;
+  transition:all .2s; text-align:left; font-family:inherit;
+}
+.btn-logout:hover{background:var(--gray-200)}
+.main{flex:1; padding:24px 32px; overflow:auto}
+.header{
+  display:flex; align-items:center; justify-content:space-between;
+  margin-bottom:24px; padding-bottom:16px; border-bottom:1px solid var(--gray-200);
+}
+.header h1{font-size:24px; font-weight:700}
+.header-actions{display:flex; gap:12px}
+.btn{
+  padding:8px 16px; border-radius:6px; border:none; font-size:14px;
+  font-weight:500; cursor:pointer; transition:all .2s;
+}
+.btn-primary{background:var(--blue-600); color:#fff}
+.btn-primary:hover{background:var(--blue-700)}
+.btn-default{background:#fff; border:1px solid var(--gray-300); color:var(--gray-700)}
+.btn-default:hover{background:var(--gray-50)}
+.toolbar{
+  display:flex; gap:12px; margin-bottom:20px; align-items:center;
+}
+.search-box{
+  flex:1; max-width:400px; position:relative;
+}
+.search-box input{
+  width:100%; padding:8px 36px 8px 14px; border:1px solid var(--gray-300);
+  border-radius:6px; font-size:14px;
+}
+.search-box button{
+  position:absolute; right:8px; top:50%; transform:translateY(-50%);
+  background:var(--blue-600); color:#fff; border:none;
+  padding:4px 12px; border-radius:4px; cursor:pointer;
+}
+.table-container{background:#fff; border-radius:8px; border:1px solid var(--gray-200); overflow:hidden}
+table{width:100%; border-collapse:collapse}
+thead{background:var(--gray-50); border-bottom:1px solid var(--gray-200)}
+th{
+  text-align:left; padding:12px 16px; font-weight:600;
+  color:var(--gray-700); font-size:13px;
+}
+td{padding:12px 16px; border-top:1px solid var(--gray-100)}
+tr:hover{background:var(--gray-50)}
+.badge{
+  display:inline-block; padding:4px 10px; border-radius:4px;
+  font-size:12px; font-weight:500;
+}
+.badge-pending{background:var(--orange-100); color:var(--orange-500)}
+.badge-contacted{background:#EFF6FF; color:#2563EB}
+.badge-approved{background:#ECFDF5; color:#059669}
+.badge-rejected{background:#FEF2F2; color:#DC2626}
+.status-select{
+  padding:5px 8px; border:1px solid var(--gray-300); border-radius:6px;
+  font-size:13px; font-family:inherit; background:#fff; cursor:pointer;
+  color:var(--gray-700);
+}
+.status-select:focus{outline:none; border-color:var(--blue-600); box-shadow:0 0 0 3px rgba(46,126,255,.12)}
+.action-link.danger{color:#DC2626}
+.nowrap{white-space:nowrap}
+.remark-line{
+  margin-top:4px; font-size:12px; color:var(--gray-500);
+  max-width:220px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+}
+.stats-bar{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:18px}
+.filter-chip{
+  display:inline-flex; align-items:center; gap:8px; cursor:pointer;
+  padding:8px 14px; border-radius:999px; font-size:13px; font-family:inherit;
+  border:1px solid var(--gray-200); background:#fff; color:var(--gray-700);
+  transition:all .2s;
+}
+.filter-chip:hover{border-color:var(--blue-600); color:var(--blue-600)}
+.filter-chip.active{background:var(--blue-600); border-color:var(--blue-600); color:#fff}
+.filter-chip .chip-num{
+  font-weight:700; padding:1px 7px; border-radius:999px;
+  background:var(--gray-100); color:var(--gray-700); font-size:12px;
+}
+.filter-chip.active .chip-num{background:rgba(255,255,255,.25); color:#fff}
+.live-tip{
+  display:none; align-items:center; gap:6px; font-size:13px;
+  color:#059669; background:#ECFDF5; border:1px solid #A7F3D0;
+  padding:6px 12px; border-radius:999px;
+}
+td{vertical-align:middle}
+.action-link{color:var(--blue-600); cursor:pointer; margin:0 8px}
+.action-link:hover{text-decoration:underline}
+.empty{text-align:center; padding:60px 20px; color:var(--gray-500)}
+</style>
+</head>
+<body>
+
+<div class="login-screen" id="loginScreen">
+  <div class="login-box">
+    <div style="text-align:center;margin-bottom:8px">
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" style="display:inline-block">
+        <path d="M24 4L38 13V31L24 40L10 31V13L24 4Z" fill="url(#grad0)" stroke="#1366F0" stroke-width="2" stroke-linejoin="round"/>
+        <circle cx="24" cy="18" r="2.5" fill="#fff"/>
+        <circle cx="18" cy="24" r="2.5" fill="#fff"/>
+        <circle cx="30" cy="24" r="2.5" fill="#fff"/>
+        <circle cx="24" cy="30" r="2.5" fill="#fff"/>
+        <line x1="24" y1="18" x2="18" y2="24" stroke="#fff" stroke-width="1.5" opacity="0.8"/>
+        <line x1="24" y1="18" x2="30" y2="24" stroke="#fff" stroke-width="1.5" opacity="0.8"/>
+        <line x1="18" y1="24" x2="24" y2="30" stroke="#fff" stroke-width="1.5" opacity="0.8"/>
+        <line x1="30" y1="24" x2="24" y2="30" stroke="#fff" stroke-width="1.5" opacity="0.8"/>
+        <circle cx="24" cy="24" r="1.5" fill="#FFF" opacity="0.9"/>
+        <defs>
+          <linearGradient id="grad0" x1="24" y1="4" x2="24" y2="40" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#2E7EFF"/>
+            <stop offset="100%" stop-color="#1366F0"/>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+    <h1 class="login-title">智研平台</h1>
+    <p class="login-subtitle">体验申请管理系统</p>
+    <form onsubmit="return login(event)">
+      <div class="form-group">
+        <label class="form-label">账号</label>
+        <input type="text" class="form-input" id="username" placeholder="请输入账号" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label">密码</label>
+        <input type="password" class="form-input" id="password" placeholder="请输入密码" required>
+      </div>
+      <div class="error" id="loginError"></div>
+      <button type="submit" class="btn-login">登录</button>
+    </form>
+  </div>
+</div>
+
+<div class="app" id="app">
+  <div class="sidebar">
+    <div class="sidebar-brand">
+      <svg width="24" height="24" viewBox="0 0 48 48" fill="none" style="display:inline-block;vertical-align:middle;margin-right:8px">
+        <path d="M24 4L38 13V31L24 40L10 31V13L24 4Z" fill="url(#grad1)" stroke="#1366F0" stroke-width="2" stroke-linejoin="round"/>
+        <circle cx="24" cy="18" r="2.5" fill="#fff"/>
+        <circle cx="18" cy="24" r="2.5" fill="#fff"/>
+        <circle cx="30" cy="24" r="2.5" fill="#fff"/>
+        <circle cx="24" cy="30" r="2.5" fill="#fff"/>
+        <line x1="24" y1="18" x2="18" y2="24" stroke="#fff" stroke-width="1.5" opacity="0.8"/>
+        <line x1="24" y1="18" x2="30" y2="24" stroke="#fff" stroke-width="1.5" opacity="0.8"/>
+        <line x1="18" y1="24" x2="24" y2="30" stroke="#fff" stroke-width="1.5" opacity="0.8"/>
+        <line x1="30" y1="24" x2="24" y2="30" stroke="#fff" stroke-width="1.5" opacity="0.8"/>
+        <circle cx="24" cy="24" r="1.5" fill="#FFF" opacity="0.9"/>
+        <defs>
+          <linearGradient id="grad1" x1="24" y1="4" x2="24" y2="40" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#2E7EFF"/>
+            <stop offset="100%" stop-color="#1366F0"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <span style="vertical-align:middle">智研平台</span>
+    </div>
+    <ul class="sidebar-nav">
+      <li><a href="#" class="active">📋 体验申请</a></li>
+    </ul>
+    <div class="sidebar-user">
+      <div class="sidebar-user-info">
+        <div>👤 系统管理员</div>
+        <div style="margin-top:4px; font-size:12px">admin</div>
+      </div>
+      <button class="btn-logout" onclick="logout()">🚪 退出登录</button>
+    </div>
+  </div>
+  <div class="main">
+    <div class="header">
+      <h1>体验申请
+        <span class="live-tip" id="liveTip">● 收到新申请，已自动刷新</span>
+      </h1>
+      <div class="header-actions">
+        <button class="btn btn-default" onclick="exportCSV()">📥 导出 CSV</button>
+        <button class="btn btn-default" onclick="clearAll()">🗑️ 清空数据</button>
+      </div>
+    </div>
+    <div class="stats-bar" id="statsBar">
+      <button class="filter-chip active" type="button" data-status="all"       onclick="setStatusFilter('all')">全部 <span class="chip-num">0</span></button>
+      <button class="filter-chip"        type="button" data-status="pending"   onclick="setStatusFilter('pending')">待审核 <span class="chip-num">0</span></button>
+      <button class="filter-chip"        type="button" data-status="contacted" onclick="setStatusFilter('contacted')">已联系 <span class="chip-num">0</span></button>
+      <button class="filter-chip"        type="button" data-status="approved"  onclick="setStatusFilter('approved')">已开通 <span class="chip-num">0</span></button>
+      <button class="filter-chip"        type="button" data-status="rejected"  onclick="setStatusFilter('rejected')">已拒绝 <span class="chip-num">0</span></button>
+    </div>
+    <div class="toolbar">
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="搜索联系人 / 企业 / 手机号 / 城市" oninput="applyFilters()">
+        <button onclick="search()">查询</button>
+      </div>
+      <button class="btn btn-default" onclick="loadData()">🔄 刷新</button>
+    </div>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>联系人</th>
+            <th>单位</th>
+            <th>手机号</th>
+            <th>职位</th>
+            <th>城市</th>
+            <th>主要场景</th>
+            <th>提交时间</th>
+            <th>状态</th>
+            <th>状态变更</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody">
+          <tr><td colspan="10" class="empty">暂无数据</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+const ADMIN={username:'admin',password:'zhiyan123'};
+let allData=[], filteredData=[];
+
+function login(e){
+  e.preventDefault();
+  const u=document.getElementById('username').value;
+  const p=document.getElementById('password').value;
+  if(u===ADMIN.username && p===ADMIN.password){
+    document.getElementById('loginScreen').style.display='none';
+    document.getElementById('app').classList.add('active');
+    loadData();
+  }else{
+    document.getElementById('loginError').textContent='账号或密码错误';
+  }
+  return false;
+}
+
+function logout(){
+  if(confirm('确定退出登录？')){
+    document.getElementById('loginScreen').style.display='flex';
+    document.getElementById('app').classList.remove('active');
+    document.getElementById('username').value='';
+    document.getElementById('password').value='';
+    document.getElementById('loginError').textContent='';
+  }
+}
+
+const ZY_STORE='zhiyan_leads';
+const STATUS={
+  pending:{label:'待审核',cls:'badge-pending'},
+  contacted:{label:'已联系',cls:'badge-contacted'},
+  approved:{label:'已开通',cls:'badge-approved'},
+  rejected:{label:'已拒绝',cls:'badge-rejected'}
+};
+
+function zyRead(){
+  try{
+    const raw=localStorage.getItem(ZY_STORE);
+    const arr=raw?JSON.parse(raw):[];
+    return Array.isArray(arr)?arr:[];
+  }catch(err){
+    console.warn('数据解析失败',err);
+    return [];
+  }
+}
+
+function zyWrite(arr){
+  try{
+    localStorage.setItem(ZY_STORE,JSON.stringify(arr));
+    return true;
+  }catch(err){
+    console.error('写入失败',err);
+    alert('保存失败：本地存储不可用或空间不足。');
+    return false;
+  }
+}
+
+// 兼容早期未带 id/status 的历史数据，补齐后回写一次
+function zyNormalize(arr){
+  let changed=false;
+  arr.forEach((d,i)=>{
+    if(!d.id){ d.id='L'+(new Date(d.time||Date.now()).getTime()).toString(36)+i.toString(36); changed=true }
+    if(!d.status){ d.status='pending'; changed=true }
+    if(d.remark===undefined){ d.remark=''; changed=true }
+    if(!d.updatedAt){ d.updatedAt=d.time||new Date().toISOString(); changed=true }
+  });
+  if(changed) zyWrite(arr);
+  return arr;
+}
+
+function loadData(){
+  allData=zyNormalize(zyRead());
+  applyFilters();
+  renderStats();
+}
+
+// 当前筛选状态
+let statusFilter='all';
+
+function applyFilters(){
+  const q=(document.getElementById('searchInput').value||'').toLowerCase().trim();
+  filteredData=allData.filter(d=>{
+    if(statusFilter!=='all' && (d.status||'pending')!==statusFilter) return false;
+    if(!q) return true;
+    return [d.name,d.company,d.phone,d.city,d.position]
+      .some(v=>String(v||'').toLowerCase().includes(q));
+  });
+  renderTable();
+  renderStats();
+}
+
+function setStatusFilter(v){
+  statusFilter=v;
+  document.querySelectorAll('.filter-chip').forEach(c=>{
+    c.classList.toggle('active', c.dataset.status===v);
+  });
+  applyFilters();
+}
+
+function renderStats(){
+  const box=document.getElementById('statsBar');
+  if(!box) return;
+  const counts={all:allData.length,pending:0,contacted:0,approved:0,rejected:0};
+  allData.forEach(d=>{counts[d.status||'pending']=(counts[d.status||'pending']||0)+1});
+  box.querySelectorAll('.filter-chip').forEach(c=>{
+    const n=c.querySelector('.chip-num');
+    if(n) n.textContent=counts[c.dataset.status]||0;
+  });
+}
+
+// 更新单条状态
+function changeStatus(id,val){
+  const row=allData.find(d=>d.id===id);
+  if(!row) return;
+  row.status=val;
+  row.updatedAt=new Date().toISOString();
+  if(zyWrite(allData)) applyFilters();
+}
+
+// 编辑跟进备注
+function editRemark(id){
+  const row=allData.find(d=>d.id===id);
+  if(!row) return;
+  const v=prompt('跟进备注：',row.remark||'');
+  if(v===null) return;
+  row.remark=v.trim();
+  row.updatedAt=new Date().toISOString();
+  if(zyWrite(allData)) applyFilters();
+}
+
+// 删除单条
+function deleteLead(id){
+  const row=allData.find(d=>d.id===id);
+  if(!row) return;
+  if(!confirm('确定删除「'+row.company+' · '+row.name+'」这条申请？此操作不可恢复。')) return;
+  allData=allData.filter(d=>d.id!==id);
+  if(zyWrite(allData)) loadData();
+}
+
+// 跨标签联动：官网提交后后台自动刷新
+window.addEventListener('storage',function(e){
+  if(e.key===ZY_STORE || e.key==='zhiyan_leads_ping'){
+    const app=document.getElementById('app');
+    if(app && app.classList.contains('active')){
+      loadData();
+      const tip=document.getElementById('liveTip');
+      if(tip){
+        tip.style.display='inline-flex';
+        clearTimeout(window.__tipT);
+        window.__tipT=setTimeout(function(){tip.style.display='none'},4000);
+      }
+    }
+  }
+});
+
+function search(){ applyFilters(); }
+
+function esc(v){
+  return String(v==null?'':v)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+function renderTable(){
+  const tbody=document.getElementById('tableBody');
+  if(filteredData.length===0){
+    const msg = allData.length===0
+      ? '暂无数据，官网提交申请后会自动出现在这里'
+      : '当前筛选条件下没有匹配记录';
+    tbody.innerHTML='<tr><td colspan="10" class="empty">'+msg+'</td></tr>';
+    return;
+  }
+  tbody.innerHTML=filteredData.map(d=>{
+    const st=STATUS[d.status||'pending']||STATUS.pending;
+    const opts=Object.keys(STATUS).map(k=>
+      '<option value="'+k+'"'+((d.status||'pending')===k?' selected':'')+'>'+STATUS[k].label+'</option>'
+    ).join('');
+    const rk=d.remark?'<div class="remark-line" title="'+esc(d.remark)+'">'+esc(d.remark)+'</div>':'';
+    return '<tr>'+
+      '<td>'+esc(d.name)+'</td>'+
+      '<td>'+esc(d.company)+rk+'</td>'+
+      '<td>'+esc(d.phone)+'</td>'+
+      '<td>'+esc(d.position)+'</td>'+
+      '<td>'+esc(d.city)+'</td>'+
+      '<td>'+(esc((d.scenes||[]).join('、'))||'-')+'</td>'+
+      '<td>'+new Date(d.time).toLocaleString('zh-CN')+'</td>'+
+      '<td><span class="badge '+st.cls+'">'+st.label+'</span></td>'+
+      '<td><select class="status-select" onchange="changeStatus(\''+esc(d.id)+'\',this.value)" aria-label="修改状态">'+opts+'</select></td>'+
+      '<td class="nowrap">'+
+        '<a class="action-link" onclick="viewDetail(\''+esc(d.id)+'\')">详情</a>'+
+        '<a class="action-link" onclick="editRemark(\''+esc(d.id)+'\')">备注</a>'+
+        '<a class="action-link danger" onclick="deleteLead(\''+esc(d.id)+'\')">删除</a>'+
+      '</td>'+
+    '</tr>';
+  }).join('');
+}
+
+function viewDetail(id){
+  const d=allData.find(x=>x.id===id);
+  if(!d) return;
+  const st=STATUS[d.status||'pending']||STATUS.pending;
+  alert(
+    '企业名称：'+d.company+
+    '\n联系人：'+d.name+
+    '\n手机号：'+d.phone+
+    '\n职位：'+d.position+
+    '\n城市：'+d.city+
+    '\n主要场景：'+((d.scenes||[]).join('、')||'未选择')+
+    '\n补充说明：'+(d.note||'无')+
+    '\n当前状态：'+st.label+
+    '\n跟进备注：'+(d.remark||'无')+
+    '\n来源：'+(d.source||'官网落地页')+
+    '\n提交时间：'+new Date(d.time).toLocaleString('zh-CN')+
+    '\n最近更新：'+new Date(d.updatedAt||d.time).toLocaleString('zh-CN')
+  );
+}
+
+function exportCSV(){
+  const rows = filteredData.length?filteredData:allData;
+  if(rows.length===0){alert('暂无数据'); return}
+  const head=['编号','企业名称','姓名','手机号','职位','城市','主要使用场景','补充说明','状态','跟进备注','来源','提交时间','最近更新'];
+  const body=rows.map(d=>[
+    d.id||'',
+    d.company,d.name,d.phone,d.position,d.city,
+    (d.scenes||[]).join('；'),
+    d.note||'',
+    (STATUS[d.status||'pending']||STATUS.pending).label,
+    d.remark||'',
+    d.source||'官网落地页',
+    new Date(d.time).toLocaleString('zh-CN'),
+    new Date(d.updatedAt||d.time).toLocaleString('zh-CN')
+  ]);
+  const csv=[head,...body]
+    .map(r=>r.map(c=>'"'+String(c==null?'':c).replace(/"/g,'""')+'"').join(','))
+    .join('\r\n');
+  const blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;
+  a.download='智研平台体验申请_'+new Date().toISOString().slice(0,10)+'.csv';
+  a.click();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+
+function clearAll(){
+  if(allData.length===0){alert('暂无数据'); return}
+  if(!confirm('确定清空全部 '+allData.length+' 条申请数据？此操作不可恢复！')) return;
+  localStorage.removeItem(ZY_STORE);
+  statusFilter='all';
+  document.querySelectorAll('.filter-chip').forEach(c=>c.classList.toggle('active',c.dataset.status==='all'));
+  document.getElementById('searchInput').value='';
+  loadData();
+  alert('已清空');
+}
+</script>
+</body>
+</html>
