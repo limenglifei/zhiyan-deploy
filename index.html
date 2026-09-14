@@ -1,0 +1,1319 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>智研平台 - AI 深度研究与产业链招商智慧引擎</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700;900&display=swap">
+<style>
+:root{
+  --blue-50:#F0F7FF; --blue-100:#E0EFFF; --blue-200:#C7E2FF;
+  --blue-500:#2E7EFF; --blue-600:#1366F0; --blue-700:#0B4FBD;
+  --gray-50:#F9FAFB; --gray-100:#F3F4F6; --gray-200:#E5E7EB;
+  --gray-300:#D1D5DB; --gray-400:#9CA3AF; --gray-500:#6B7280;
+  --gray-600:#4B5563; --gray-700:#374151; --gray-800:#1F2937; --gray-900:#111827;
+  --purple-50:#FAF5FF; --purple-100:#F3E8FF; --purple-200:#E9D5FF;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.05);
+  --shadow:0 4px 12px rgba(0,0,0,.08);
+  --shadow-lg:0 12px 32px rgba(0,0,0,.12);
+}
+*{box-sizing:border-box; margin:0; padding:0}
+body{
+  font-family:"Noto Sans SC",-apple-system,BlinkMacSystemFont,sans-serif;
+  font-size:16px; line-height:1.6; color:var(--gray-800);
+  background:#fff; -webkit-font-smoothing:antialiased;
+}
+/* ---------- layout ---------- */
+.container{max-width:1200px; margin:0 auto; padding:0 24px}
+.section{padding:80px 0}
+.section:nth-child(even){
+  background:
+    radial-gradient(900px 420px at 85% 0%, rgba(139,92,246,.07), transparent 60%),
+    linear-gradient(180deg,#FAFCFF 0%,#F1F5FE 100%);
+}
+.section-label{
+  font-size:14px; font-weight:600; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--blue-600); margin-bottom:16px;
+}
+.section-title{font-size:42px; font-weight:900; line-height:1.2; margin-bottom:16px}
+.section-desc{font-size:18px; color:var(--gray-600); max-width:720px}
+/* ---------- header ---------- */
+.header{
+  position:sticky; top:0; z-index:1000;
+  background:rgba(255,255,255,.72);
+  backdrop-filter:saturate(180%) blur(14px);
+  -webkit-backdrop-filter:saturate(180%) blur(14px);
+  border-bottom:1px solid rgba(46,126,255,.10);
+  box-shadow:none;
+  transition:background .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+.header.scrolled{
+  background:rgba(255,255,255,.92);
+  border-bottom-color:rgba(46,126,255,.16);
+  box-shadow:0 6px 24px rgba(15,23,42,.07);
+}
+.header .container{
+  display:flex; align-items:center; justify-content:space-between;
+  height:72px; transition:height .25s ease;
+}
+.header.scrolled .container{height:62px}
+html{scroll-behavior:smooth; scroll-padding-top:88px}
+.brand{display:flex; align-items:center; gap:12px; text-decoration:none}
+.brand img{height:32px; width:auto}
+.brand-text{font-size:18px; font-weight:700; color:var(--gray-900)}
+.nav{display:flex; gap:40px; list-style:none}
+.nav a{
+  text-decoration:none; color:var(--gray-700); font-weight:500;
+  transition:color .2s;
+}
+.nav a:hover{color:var(--blue-600)}
+.btn{
+  display:inline-flex; align-items:center; gap:8px;
+  padding:12px 32px; border-radius:6px; border:none;
+  font-size:16px; font-weight:600; cursor:pointer;
+  text-decoration:none; transition:all .2s;
+}
+.btn-primary{
+  background:var(--blue-600); color:#fff;
+  box-shadow:0 2px 8px rgba(30,126,255,.3);
+}
+.btn-primary:hover{background:var(--blue-700); transform:translateY(-1px)}
+.btn-outline{
+  background:transparent; color:var(--blue-600);
+  border:1px solid var(--blue-600);
+}
+.btn-outline:hover{background:var(--blue-50)}
+/* ---------- hero ---------- */
+.hero{
+  background:
+    radial-gradient(1200px 600px at 78% 8%, rgba(139,92,246,.13), transparent 62%),
+    radial-gradient(900px 520px at 12% 12%, rgba(46,126,255,.14), transparent 60%),
+    linear-gradient(180deg,#FBFCFF 0%,#F2F6FF 42%,#E8EFFC 100%);
+  padding:120px 0 140px; position:relative; overflow:hidden; isolation:isolate;
+}
+/* 城市天际线（透视远景） */
+.hero-city{
+  position:absolute; left:0; right:0; bottom:78px; height:340px;
+  z-index:-2; pointer-events:none;
+  opacity:.5;
+  mask-image:linear-gradient(180deg,transparent 0%,#000 34%,#000 82%,transparent 100%);
+  -webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 34%,#000 82%,transparent 100%);
+}
+.hero-city svg{width:100%; height:100%; display:block}
+/* 地面透视网格 */
+.hero-grid{
+  position:absolute; left:-10%; right:-10%; bottom:0; height:190px;
+  z-index:-2; pointer-events:none;
+  background-image:
+    repeating-linear-gradient(90deg,rgba(46,126,255,.16) 0 1px,transparent 1px 74px),
+    repeating-linear-gradient(0deg,rgba(46,126,255,.13) 0 1px,transparent 1px 46px);
+  transform:perspective(520px) rotateX(66deg);
+  transform-origin:bottom center;
+  mask-image:linear-gradient(180deg,transparent 0%,#000 45%,#000 100%);
+  -webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 45%,#000 100%);
+}
+/* 顶部柔光 + 斜向光束 */
+.hero::before{
+  content:''; position:absolute; inset:0; z-index:-1; pointer-events:none;
+  background:
+    linear-gradient(104deg,transparent 26%,rgba(255,255,255,.62) 38%,transparent 47%),
+    linear-gradient(104deg,transparent 54%,rgba(255,255,255,.42) 63%,transparent 71%);
+}
+.hero::after{
+  content:''; position:absolute; left:0; right:0; bottom:0; height:120px; z-index:-1;
+  background:linear-gradient(180deg,transparent,rgba(255,255,255,.85));
+  pointer-events:none;
+}
+.hero .container{display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; position:relative; z-index:1}
+.hero-label{
+  display:inline-block; padding:6px 16px; border-radius:20px;
+  background:var(--blue-100); color:var(--blue-700);
+  font-size:14px; font-weight:600; margin-bottom:24px;
+}
+.hero-title{font-size:56px; font-weight:900; line-height:1.15; margin-bottom:24px}
+.hero-title .highlight{
+  background:linear-gradient(135deg,var(--blue-600),#2E93F5);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.hero-desc{font-size:20px; color:var(--gray-600); margin-bottom:40px; line-height:1.7}
+.hero-actions{display:flex; gap:16px; margin-bottom:32px}
+.hero-note{font-size:14px; color:var(--gray-500)}
+.hero-visual{position:relative}
+.hero-card{
+  background:rgba(255,255,255,.92); border-radius:20px; padding:32px;
+  backdrop-filter:blur(10px);
+  box-shadow:0 18px 50px rgba(46,126,255,.16), 0 2px 8px rgba(15,23,42,.05);
+  border:1px solid rgba(255,255,255,.9);
+}
+.hero-card h3{font-size:20px; font-weight:700; margin-bottom:20px}
+.hero-card .item{
+  padding:16px 0; border-top:1px solid var(--gray-100);
+  display:flex; gap:12px;
+}
+.hero-card .item-icon{
+  width:40px; height:40px; border-radius:8px;
+  background:var(--blue-50); display:grid; place-items:center;
+  color:var(--blue-600); font-weight:700; flex-shrink:0;
+}
+.hero-card .item-text{flex:1}
+.hero-card .item-label{font-size:12px; color:var(--gray-500); margin-bottom:4px}
+.hero-card .item-value{font-size:16px; font-weight:600}
+/* ---------- cards ---------- */
+.card-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:24px}
+.card{
+  background:#fff; border:1px solid rgba(139,92,246,.15); border-radius:16px;
+  padding:32px; transition:all .3s;
+  box-shadow:0 4px 20px rgba(139,92,246,.08);
+}
+.card:hover{box-shadow:0 8px 32px rgba(139,92,246,.15); transform:translateY(-4px)}
+/* ---------- 招商全链路：五步一屏铺满，不横向滚动 ---------- */
+.wf-flow{
+  display:flex; align-items:stretch; gap:8px; margin-top:48px;
+}
+.wf-flow .card.wf-card{
+  flex:1 1 0; min-width:0; padding:20px 16px;
+  display:flex; flex-direction:column;
+}
+.wf-card h3{font-size:16px; line-height:1.35; margin-bottom:8px; letter-spacing:-.01em}
+.wf-card p{font-size:13px; line-height:1.6}
+.wf-card em{margin-top:auto; padding-top:10px; font-size:12px}
+.wf-card .card-num{padding:3px 9px; font-size:12px; margin-bottom:10px}
+.wf-arrow{
+  flex:0 0 auto; align-self:center; color:var(--blue-600);
+  font-size:18px; line-height:1; user-select:none;
+}
+@media (max-width:1024px){
+  .wf-flow{flex-wrap:wrap; gap:16px}
+  .wf-flow .card.wf-card{flex:1 1 260px}
+  .wf-arrow{display:none}
+}
+/* ---------- 全国企业地图 ---------- */
+.nw-mapwrap{
+  position:relative; margin-top:44px; border-radius:20px; overflow:hidden;
+  background:linear-gradient(160deg,#F7FAFF 0%,#EEF4FF 55%,#F3EEFF 100%);
+  border:1px solid rgba(46,126,255,.16);
+  box-shadow:0 10px 34px rgba(46,126,255,.10);
+}
+.nw-map{display:block; width:100%; height:auto}
+.nw-landfill{
+  fill:url(#nwLand); stroke:rgba(46,126,255,.42); stroke-width:1.4;
+}
+.nw-flow{
+  stroke:url(#nwFlowGrad); stroke-width:1.8; stroke-linecap:round;
+  stroke-dasharray:14 150; stroke-dashoffset:164;
+  animation:nwFlow 3.2s linear infinite;
+  animation-delay:calc(var(--i) * -0.27s);
+}
+@keyframes nwFlow{
+  0%{stroke-dashoffset:164; opacity:0}
+  12%{opacity:.95}
+  86%{opacity:.95}
+  100%{stroke-dashoffset:0; opacity:0}
+}
+.nw-dot{
+  fill:#2E7EFF; stroke:#fff; stroke-width:1.6;
+  animation:nwDot 2.6s ease-in-out infinite;
+  animation-delay:calc(var(--i) * -0.21s);
+  transform-box:fill-box; transform-origin:center;
+}
+@keyframes nwDot{
+  0%,100%{transform:scale(.86); opacity:.72}
+  50%{transform:scale(1.18); opacity:1}
+}
+.nw-core{fill:url(#nwHubGrad)}
+.nw-ring{fill:none; stroke:#2E7EFF; stroke-width:1.6;
+  transform-box:fill-box; transform-origin:center;
+  animation:nwRing 2.8s ease-out infinite}
+.nw-ring.r2{animation-delay:-1.4s}
+@keyframes nwRing{
+  0%{transform:scale(.55); opacity:.85}
+  100%{transform:scale(2.1); opacity:0}}
+.nw-legend{
+  position:absolute; left:22px; bottom:18px;
+  display:flex; gap:18px; flex-wrap:wrap;
+  background:rgba(255,255,255,.82); backdrop-filter:blur(6px);
+  border:1px solid rgba(46,126,255,.16); border-radius:10px;
+  padding:8px 14px; font-size:13px; color:var(--gray-600)}
+.nw-lg{display:inline-flex; align-items:center; gap:7px}
+.nw-lg-dot{width:9px; height:9px; border-radius:50%;
+  background:#2E7EFF; flex:0 0 auto}
+.nw-lg-line{width:18px; height:2px; flex:0 0 auto;
+  background:linear-gradient(90deg,#7C3AED,#2E7EFF)}
+.nw-lg-hub{width:11px; height:11px; flex:0 0 auto;
+  border-radius:50%; background:#1366F0;
+  box-shadow:0 0 0 3px rgba(46,126,255,.22)}
+.nw-badge{
+  position:absolute; right:20px; top:18px;
+  display:inline-flex; align-items:center; gap:7px;
+  background:rgba(255,255,255,.86); border-radius:999px;
+  border:1px solid rgba(46,126,255,.18);
+  padding:6px 14px; font-size:12px; font-weight:600;
+  color:var(--blue-700)}
+.nw-badge::before{
+  content:""; width:7px; height:7px; border-radius:50%;
+  background:#22C55E;
+  animation:nwBlink 1.6s ease-in-out infinite}
+@keyframes nwBlink{
+  0%,100%{opacity:1}50%{opacity:.28}}
+.nw-stats{
+  display:grid; grid-template-columns:repeat(4,1fr);
+  gap:18px; margin-top:26px}
+.nw-stat{
+  background:#fff; border-radius:14px; padding:18px 16px;
+  text-align:center; border:1px solid rgba(46,126,255,.14);
+  box-shadow:0 4px 16px rgba(46,126,255,.07)}
+.nw-stat b{
+  display:block; font-size:26px; font-weight:900;
+  color:var(--blue-700); line-height:1.2}
+.nw-stat span{
+  display:block; margin-top:6px; font-size:13px;
+  color:var(--gray-600)}
+@media (max-width:768px){
+  .nw-stats{grid-template-columns:repeat(2,1fr)}
+  .nw-legend{position:static; margin:12px 14px 14px}}
+@media (prefers-reduced-motion:reduce){
+  .nw-flow,.nw-dot,.nw-ring,.nw-badge::before{
+    animation:none}
+  .nw-flow{stroke-dasharray:none; opacity:.5}}
+.card-num{
+  display:inline-block; padding:4px 12px; border-radius:6px;
+  background:var(--blue-100); color:var(--blue-700);
+  font-size:14px; font-weight:700; margin-bottom:16px;
+}
+.card h3{font-size:20px; font-weight:700; margin-bottom:12px}
+.card p{color:var(--gray-600); line-height:1.7}
+.card em{display:block; margin-top:8px; font-style:normal; font-size:14px; color:var(--gray-500)}
+/* ---------- capabilities ---------- */
+.cap-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:32px}
+.cap{
+  display:grid; grid-template-columns:64px 1fr; gap:24px;
+  padding:32px; background:var(--gray-50); border-radius:12px;
+  border:1px solid var(--gray-200);
+}
+.cap-icon{
+  width:64px; height:64px; border-radius:12px;
+  background:linear-gradient(135deg,var(--blue-600),var(--blue-500));
+  display:grid; place-items:center;
+}
+.cap-icon svg{width:32px; height:32px; stroke:#fff; fill:none; stroke-width:2}
+.cap h3{font-size:20px; font-weight:700; margin-bottom:12px}
+.cap p{color:var(--gray-600); line-height:1.7; margin-bottom:16px}
+.cap ul{list-style:none; display:flex; flex-wrap:wrap; gap:8px}
+.cap li{
+  padding:4px 12px; border-radius:6px; background:#fff;
+  border:1px solid var(--gray-200); font-size:14px; color:var(--gray-700);
+}
+/* ---------- modal ---------- */
+.modal{
+  display:none; position:fixed; inset:0; z-index:9999;
+  background:rgba(0,0,0,.5); backdrop-filter:blur(4px);
+  align-items:center; justify-content:center; padding:24px;
+}
+.modal.active{display:flex}
+.modal-content{
+  background:#fff; border-radius:16px; box-shadow:var(--shadow-lg);
+  max-width:900px; width:100%; max-height:92vh;
+  overflow-y:auto; overscroll-behavior:contain;
+  padding:36px 48px; position:relative;
+  scrollbar-width:none; -ms-overflow-style:none;
+}
+.modal-content::-webkit-scrollbar{width:0; height:0; display:none}
+.modal-close{
+  position:absolute; top:16px; right:16px;
+  width:40px; height:40px; border-radius:50%;
+  border:none; background:var(--gray-100); cursor:pointer;
+  display:grid; place-items:center; transition:all .2s;
+}
+.modal-close:hover{background:var(--gray-200)}
+.modal-title{font-size:28px; font-weight:900; margin-bottom:8px}
+.modal-desc{color:var(--gray-600); margin-bottom:24px}
+.form-group{margin-bottom:18px}
+.form-label{
+  display:block; font-weight:600; margin-bottom:6px;
+  color:var(--gray-800); font-size:14px;
+}
+.form-label .required{color:#EF4444}
+.form-input,.form-select,.form-textarea{
+  width:100%; padding:12px 16px; border:1px solid var(--gray-300);
+  border-radius:8px; font-size:16px; font-family:inherit;
+  transition:all .2s;
+}
+.form-input:focus,.form-select:focus,.form-textarea:focus{
+  outline:none; border-color:var(--blue-600);
+  box-shadow:0 0 0 3px rgba(46,126,255,.1);
+}
+.form-textarea{resize:vertical; min-height:56px; height:56px; line-height:1.5}
+.checkbox-group{display:flex; flex-direction:column; gap:8px}
+.checkbox-label{
+  display:flex; align-items:center; gap:8px; cursor:pointer;
+  padding:10px; border-radius:8px; border:1px solid var(--gray-200);
+  transition:all .2s; font-size:14px;
+}
+.checkbox-label:hover{background:var(--gray-50)}
+.checkbox-label input{cursor:pointer}
+.form-hint{font-size:14px; color:var(--gray-500); margin-top:8px}
+.form-actions{display:flex; gap:12px; margin-top:22px}
+.form-actions .btn{
+  display:flex; align-items:center; justify-content:center; text-align:center;
+}
+.form-row{display:grid; grid-template-columns:1fr 1fr; gap:20px}
+.footer{
+  background:
+    radial-gradient(700px 300px at 12% 0%, rgba(46,126,255,.09), transparent 60%),
+    linear-gradient(180deg,#F4F8FF 0%,#EAF1FC 100%);
+  border-top:1px solid rgba(46,126,255,.16); padding:60px 0 32px;
+}
+.footer-brand{display:flex; align-items:center; gap:12px; margin-bottom:16px}
+.footer-brand img{height:28px}
+.footer-brand-text{font-size:16px; font-weight:700}
+.footer-tagline{color:var(--gray-600); line-height:1.7; margin-bottom:0}
+.footer-certs{display:flex; align-items:center; gap:48px; flex-wrap:wrap}
+.footer-cert{text-align:center}
+.footer-cert-icon{
+  width:56px; height:56px; margin:0 auto 8px;
+  border-radius:12px; background:var(--blue-50);
+  display:grid; place-items:center; color:var(--blue-600);
+  font-size:24px;
+}
+.footer-cert-text{font-size:13px; color:var(--gray-600); line-height:1.5}
+.footer-contact{
+  margin-top:40px; padding-top:28px;
+  border-top:1px solid rgba(46,126,255,.14);
+}
+.footer-contact-title{
+  font-size:18px; font-weight:700; color:var(--gray-900); margin-bottom:18px;
+}
+.footer-contact-grid{
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px;
+}
+.footer-contact-item{
+  display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+  background:rgba(255,255,255,.7); border:1px solid rgba(46,126,255,.12);
+  border-radius:10px; padding:14px 16px; font-size:15px;
+}
+.footer-contact-label{
+  flex-shrink:0; font-weight:600; color:var(--gray-700);
+  padding:2px 10px; border-radius:6px;
+  background:var(--blue-100); color:var(--blue-700); font-size:13px;
+}
+.footer-contact-item a{color:var(--gray-700); text-decoration:none; word-break:break-all}
+.footer-contact-item a:hover{color:var(--blue-600); text-decoration:underline}
+.footer-bottom{
+  padding-top:24px; border-top:1px solid var(--gray-200);
+  color:var(--gray-500); font-size:14px; line-height:1.8;
+}
+.footer-bottom a{color:var(--gray-500); text-decoration:none}
+.footer-bottom a:hover{color:var(--blue-600)}
+@media (max-width:768px){
+  .hero .container{grid-template-columns:1fr; gap:40px}
+  .hero-title{font-size:36px}
+  .section-title{font-size:32px}
+  .cap-grid,.footer-certs{grid-template-columns:1fr}
+}
+/*CHUNK*/
+</style>
+</head>
+<body style="zoom:0.9; -moz-transform:scale(0.9); -moz-transform-origin:0 0">
+
+<header class="header">
+  <div class="container">
+    <a href="#" class="brand">
+      <svg width="32" height="32" viewBox="0 0 48 48" fill="none" style="display:block">
+        <path d="M24 4L38 13V31L24 40L10 31V13L24 4Z" fill="url(#grad1)" stroke="#1366F0" stroke-width="2" stroke-linejoin="round"/>
+        <circle cx="24" cy="18" r="2.5" fill="#fff"/>
+        <circle cx="18" cy="24" r="2.5" fill="#fff"/>
+        <circle cx="30" cy="24" r="2.5" fill="#fff"/>
+        <circle cx="24" cy="30" r="2.5" fill="#fff"/>
+        <line x1="24" y1="18" x2="18" y2="24" stroke="#fff" stroke-width="1.5" opacity="0.8"/>
+        <line x1="24" y1="18" x2="30" y2="24" stroke="#fff" stroke-width="1.5" opacity="0.8"/>
+        <line x1="18" y1="24" x2="24" y2="30" stroke="#fff" stroke-width="1.5" opacity="0.8"/>
+        <line x1="30" y1="24" x2="24" y2="30" stroke="#fff" stroke-width="1.5" opacity="0.8"/>
+        <circle cx="24" cy="24" r="1.5" fill="#FFF" opacity="0.9"/>
+        <defs>
+          <linearGradient id="grad1" x1="24" y1="4" x2="24" y2="40" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#2E7EFF"/>
+            <stop offset="100%" stop-color="#1366F0"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <span class="brand-text">智研平台</span>
+    </a>
+    <nav>
+      <ul class="nav">
+        <li><a href="#pain">产品能力</a></li>
+        <li><a href="#capability">核心能力</a></li>
+        <li><a href="#workflow">招商全链路</a></li>
+        <li><a href="#data">数据底座</a></li>
+        <li><a href="#scene">应用场景</a></li>
+      </ul>
+    </nav>
+    <button class="btn btn-primary" onclick="openModal()">申请体验</button>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="hero-city" aria-hidden="true"><svg viewBox="0 0 1440 300" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><g><rect x="-20" y="221" width="24" height="79" fill="#C7D8F2" opacity="0.55"/><rect x="10" y="234" width="34" height="66" fill="#C7D8F2" opacity="0.55"/><rect x="45" y="228" width="31" height="72" fill="#C7D8F2" opacity="0.55"/><rect x="81" y="233" width="32" height="67" fill="#C7D8F2" opacity="0.55"/><rect x="121" y="236" width="20" height="64" fill="#C7D8F2" opacity="0.55"/><rect x="142" y="187" width="27" height="113" fill="#C7D8F2" opacity="0.55"/><rect x="170" y="229" width="21" height="71" fill="#C7D8F2" opacity="0.55"/><rect x="199" y="233" width="27" height="67" fill="#C7D8F2" opacity="0.55"/><rect x="227" y="160" width="21" height="140" fill="#C7D8F2" opacity="0.55"/><rect x="248" y="166" width="32" height="134" fill="#C7D8F2" opacity="0.55"/><rect x="263" y="144" width="3" height="26" fill="#C7D8F2" opacity="0.55"/><rect x="280" y="235" width="21" height="65" fill="#C7D8F2" opacity="0.55"/><rect x="309" y="203" width="18" height="97" fill="#C7D8F2" opacity="0.55"/><rect x="333" y="171" width="18" height="129" fill="#C7D8F2" opacity="0.55"/><rect x="352" y="201" width="32" height="99" fill="#C7D8F2" opacity="0.55"/><rect x="392" y="227" width="19" height="73" fill="#C7D8F2" opacity="0.55"/><rect x="414" y="228" width="25" height="72" fill="#C7D8F2" opacity="0.55"/><rect x="447" y="168" width="16" height="132" fill="#C7D8F2" opacity="0.55"/><rect x="463" y="214" width="33" height="86" fill="#C7D8F2" opacity="0.55"/><rect x="503" y="186" width="31" height="114" fill="#C7D8F2" opacity="0.55"/><rect x="539" y="166" width="28" height="134" fill="#C7D8F2" opacity="0.55"/><rect x="552" y="142" width="3" height="26" fill="#C7D8F2" opacity="0.55"/><rect x="572" y="209" width="23" height="91" fill="#C7D8F2" opacity="0.55"/><rect x="597" y="230" width="21" height="70" fill="#C7D8F2" opacity="0.55"/><rect x="622" y="177" width="30" height="123" fill="#C7D8F2" opacity="0.55"/><rect x="636" y="157" width="3" height="26" fill="#C7D8F2" opacity="0.55"/><rect x="659" y="163" width="23" height="137" fill="#C7D8F2" opacity="0.55"/><rect x="669" y="151" width="3" height="26" fill="#C7D8F2" opacity="0.55"/><rect x="683" y="187" width="30" height="113" fill="#C7D8F2" opacity="0.55"/><rect x="715" y="221" width="24" height="79" fill="#C7D8F2" opacity="0.55"/><rect x="746" y="235" width="27" height="65" fill="#C7D8F2" opacity="0.55"/><rect x="774" y="167" width="31" height="133" fill="#C7D8F2" opacity="0.55"/><rect x="788" y="147" width="3" height="26" fill="#C7D8F2" opacity="0.55"/><rect x="810" y="164" width="25" height="136" fill="#C7D8F2" opacity="0.55"/><rect x="821" y="139" width="3" height="26" fill="#C7D8F2" opacity="0.55"/><rect x="842" y="229" width="16" height="71" fill="#C7D8F2" opacity="0.55"/><rect x="862" y="151" width="29" height="149" fill="#C7D8F2" opacity="0.55"/><rect x="875" y="139" width="3" height="26" fill="#C7D8F2" opacity="0.55"/><rect x="891" y="158" width="23" height="142" fill="#C7D8F2" opacity="0.55"/><rect x="901" y="134" width="3" height="26" fill="#C7D8F2" opacity="0.55"/><rect x="918" y="155" width="26" height="145" fill="#C7D8F2" opacity="0.55"/><rect x="930" y="134" width="3" height="26" fill="#C7D8F2" opacity="0.55"/><rect x="944" y="195" width="28" height="105" fill="#C7D8F2" opacity="0.55"/><rect x="974" y="226" width="33" height="74" fill="#C7D8F2" opacity="0.55"/><rect x="1014" y="213" width="15" height="87" fill="#C7D8F2" opacity="0.55"/><rect x="1033" y="209" width="18" height="91" fill="#C7D8F2" opacity="0.55"/><rect x="1057" y="177" width="26" height="123" fill="#C7D8F2" opacity="0.55"/><rect x="1069" y="165" width="3" height="26" fill="#C7D8F2" opacity="0.55"/><rect x="1085" y="189" width="28" height="111" fill="#C7D8F2" opacity="0.55"/><rect x="1121" y="223" width="22" height="77" fill="#C7D8F2" opacity="0.55"/><rect x="1149" y="205" width="31" height="95" fill="#C7D8F2" opacity="0.55"/><rect x="1186" y="153" width="25" height="147" fill="#C7D8F2" opacity="0.55"/><rect x="1197" y="131" width="3" height="26" fill="#C7D8F2" opacity="0.55"/><rect x="1214" y="230" width="18" height="70" fill="#C7D8F2" opacity="0.55"/><rect x="1234" y="211" width="18" height="89" fill="#C7D8F2" opacity="0.55"/><rect x="1255" y="178" width="14" height="122" fill="#C7D8F2" opacity="0.55"/><rect x="1271" y="204" width="22" height="96" fill="#C7D8F2" opacity="0.55"/><rect x="1293" y="187" width="18" height="113" fill="#C7D8F2" opacity="0.55"/><rect x="1319" y="162" width="25" height="138" fill="#C7D8F2" opacity="0.55"/><rect x="1330" y="142" width="3" height="26" fill="#C7D8F2" opacity="0.55"/><rect x="1346" y="161" width="30" height="139" fill="#C7D8F2" opacity="0.55"/><rect x="1360" y="150" width="3" height="26" fill="#C7D8F2" opacity="0.55"/><rect x="1383" y="190" width="31" height="110" fill="#C7D8F2" opacity="0.55"/><rect x="1420" y="190" width="26" height="110" fill="#C7D8F2" opacity="0.55"/><rect x="1447" y="159" width="29" height="141" fill="#C7D8F2" opacity="0.55"/><rect x="1460" y="137" width="3" height="26" fill="#C7D8F2" opacity="0.55"/></g><g><rect x="-20" y="202" width="24" height="98" fill="#AEC6EA" opacity="0.60"/><rect x="5" y="190" width="32" height="110" fill="#AEC6EA" opacity="0.60"/><rect x="37" y="134" width="28" height="166" fill="#AEC6EA" opacity="0.60"/><rect x="65" y="210" width="21" height="90" fill="#AEC6EA" opacity="0.60"/><rect x="90" y="142" width="22" height="158" fill="#AEC6EA" opacity="0.60"/><rect x="112" y="132" width="29" height="168" fill="#AEC6EA" opacity="0.60"/><rect x="141" y="99" width="20" height="201" fill="#AEC6EA" opacity="0.60"/><rect x="162" y="162" width="37" height="138" fill="#AEC6EA" opacity="0.60"/><rect x="200" y="178" width="38" height="122" fill="#AEC6EA" opacity="0.60"/><rect x="240" y="164" width="37" height="136" fill="#AEC6EA" opacity="0.60"/><rect x="280" y="196" width="21" height="104" fill="#AEC6EA" opacity="0.60"/><rect x="307" y="151" width="33" height="149" fill="#AEC6EA" opacity="0.60"/><rect x="343" y="171" width="33" height="129" fill="#AEC6EA" opacity="0.60"/><rect x="376" y="197" width="22" height="103" fill="#AEC6EA" opacity="0.60"/><rect x="403" y="116" width="28" height="184" fill="#AEC6EA" opacity="0.60"/><rect x="416" y="98" width="3" height="26" fill="#AEC6EA" opacity="0.60"/><rect x="434" y="190" width="40" height="110" fill="#AEC6EA" opacity="0.60"/><rect x="478" y="184" width="18" height="116" fill="#AEC6EA" opacity="0.60"/><rect x="500" y="192" width="29" height="108" fill="#AEC6EA" opacity="0.60"/><rect x="534" y="93" width="35" height="207" fill="#AEC6EA" opacity="0.60"/><rect x="550" y="83" width="3" height="26" fill="#AEC6EA" opacity="0.60"/><rect x="575" y="172" width="34" height="128" fill="#AEC6EA" opacity="0.60"/><rect x="614" y="121" width="20" height="179" fill="#AEC6EA" opacity="0.60"/><rect x="640" y="144" width="26" height="156" fill="#AEC6EA" opacity="0.60"/><rect x="668" y="165" width="23" height="135" fill="#AEC6EA" opacity="0.60"/><rect x="697" y="142" width="25" height="158" fill="#AEC6EA" opacity="0.60"/><rect x="726" y="146" width="42" height="154" fill="#AEC6EA" opacity="0.60"/><rect x="770" y="182" width="38" height="118" fill="#AEC6EA" opacity="0.60"/><rect x="812" y="101" width="42" height="199" fill="#AEC6EA" opacity="0.60"/><rect x="832" y="85" width="3" height="26" fill="#AEC6EA" opacity="0.60"/><rect x="860" y="106" width="25" height="194" fill="#AEC6EA" opacity="0.60"/><rect x="871" y="84" width="3" height="26" fill="#AEC6EA" opacity="0.60"/><rect x="890" y="185" width="25" height="115" fill="#AEC6EA" opacity="0.60"/><rect x="919" y="165" width="33" height="135" fill="#AEC6EA" opacity="0.60"/><rect x="957" y="207" width="18" height="93" fill="#AEC6EA" opacity="0.60"/><rect x="981" y="150" width="26" height="150" fill="#AEC6EA" opacity="0.60"/><rect x="1009" y="122" width="24" height="178" fill="#AEC6EA" opacity="0.60"/><rect x="1020" y="101" width="3" height="26" fill="#AEC6EA" opacity="0.60"/><rect x="1036" y="166" width="41" height="134" fill="#AEC6EA" opacity="0.60"/><rect x="1079" y="182" width="20" height="118" fill="#AEC6EA" opacity="0.60"/><rect x="1099" y="150" width="25" height="150" fill="#AEC6EA" opacity="0.60"/><rect x="1125" y="184" width="28" height="116" fill="#AEC6EA" opacity="0.60"/><rect x="1156" y="95" width="37" height="205" fill="#AEC6EA" opacity="0.60"/><rect x="1173" y="85" width="3" height="26" fill="#AEC6EA" opacity="0.60"/><rect x="1196" y="166" width="38" height="134" fill="#AEC6EA" opacity="0.60"/><rect x="1240" y="200" width="38" height="100" fill="#AEC6EA" opacity="0.60"/><rect x="1284" y="195" width="39" height="105" fill="#AEC6EA" opacity="0.60"/><rect x="1326" y="114" width="40" height="186" fill="#AEC6EA" opacity="0.60"/><rect x="1345" y="98" width="3" height="26" fill="#AEC6EA" opacity="0.60"/><rect x="1369" y="155" width="23" height="145" fill="#AEC6EA" opacity="0.60"/><rect x="1398" y="168" width="38" height="132" fill="#AEC6EA" opacity="0.60"/><rect x="1436" y="160" width="41" height="140" fill="#AEC6EA" opacity="0.60"/></g><g><rect x="-20" y="240" width="47" height="60" fill="#93B2DF" opacity="0.55"/><rect x="29" y="234" width="32" height="66" fill="#93B2DF" opacity="0.55"/><rect x="61" y="175" width="31" height="125" fill="#93B2DF" opacity="0.55"/><rect x="75" y="151" width="3" height="26" fill="#93B2DF" opacity="0.55"/><rect x="102" y="172" width="31" height="128" fill="#93B2DF" opacity="0.55"/><rect x="116" y="147" width="3" height="26" fill="#93B2DF" opacity="0.55"/><rect x="143" y="231" width="44" height="69" fill="#93B2DF" opacity="0.55"/><rect x="195" y="248" width="30" height="52" fill="#93B2DF" opacity="0.55"/><rect x="225" y="183" width="28" height="117" fill="#93B2DF" opacity="0.55"/><rect x="238" y="169" width="3" height="26" fill="#93B2DF" opacity="0.55"/><rect x="259" y="223" width="34" height="77" fill="#93B2DF" opacity="0.55"/><rect x="293" y="223" width="38" height="77" fill="#93B2DF" opacity="0.55"/><rect x="335" y="220" width="54" height="80" fill="#93B2DF" opacity="0.55"/><rect x="398" y="217" width="42" height="83" fill="#93B2DF" opacity="0.55"/><rect x="448" y="234" width="48" height="66" fill="#93B2DF" opacity="0.55"/><rect x="496" y="192" width="44" height="108" fill="#93B2DF" opacity="0.55"/><rect x="517" y="166" width="3" height="26" fill="#93B2DF" opacity="0.55"/><rect x="546" y="234" width="54" height="66" fill="#93B2DF" opacity="0.55"/><rect x="608" y="183" width="31" height="117" fill="#93B2DF" opacity="0.55"/><rect x="622" y="157" width="3" height="26" fill="#93B2DF" opacity="0.55"/><rect x="639" y="227" width="50" height="73" fill="#93B2DF" opacity="0.55"/><rect x="698" y="231" width="22" height="69" fill="#93B2DF" opacity="0.55"/><rect x="722" y="190" width="31" height="110" fill="#93B2DF" opacity="0.55"/><rect x="736" y="177" width="3" height="26" fill="#93B2DF" opacity="0.55"/><rect x="761" y="209" width="25" height="91" fill="#93B2DF" opacity="0.55"/><rect x="796" y="237" width="52" height="63" fill="#93B2DF" opacity="0.55"/><rect x="856" y="219" width="25" height="81" fill="#93B2DF" opacity="0.55"/><rect x="884" y="245" width="39" height="55" fill="#93B2DF" opacity="0.55"/><rect x="924" y="193" width="54" height="107" fill="#93B2DF" opacity="0.55"/><rect x="950" y="183" width="3" height="26" fill="#93B2DF" opacity="0.55"/><rect x="979" y="209" width="50" height="91" fill="#93B2DF" opacity="0.55"/><rect x="1038" y="173" width="54" height="127" fill="#93B2DF" opacity="0.55"/><rect x="1064" y="147" width="3" height="26" fill="#93B2DF" opacity="0.55"/><rect x="1095" y="193" width="39" height="107" fill="#93B2DF" opacity="0.55"/><rect x="1113" y="167" width="3" height="26" fill="#93B2DF" opacity="0.55"/><rect x="1142" y="186" width="52" height="114" fill="#93B2DF" opacity="0.55"/><rect x="1167" y="169" width="3" height="26" fill="#93B2DF" opacity="0.55"/><rect x="1202" y="179" width="38" height="121" fill="#93B2DF" opacity="0.55"/><rect x="1220" y="163" width="3" height="26" fill="#93B2DF" opacity="0.55"/><rect x="1247" y="197" width="30" height="103" fill="#93B2DF" opacity="0.55"/><rect x="1278" y="194" width="47" height="106" fill="#93B2DF" opacity="0.55"/><rect x="1300" y="174" width="3" height="26" fill="#93B2DF" opacity="0.55"/><rect x="1326" y="196" width="37" height="104" fill="#93B2DF" opacity="0.55"/><rect x="1364" y="212" width="35" height="88" fill="#93B2DF" opacity="0.55"/><rect x="1400" y="204" width="31" height="96" fill="#93B2DF" opacity="0.55"/><rect x="1433" y="233" width="38" height="67" fill="#93B2DF" opacity="0.55"/></g></svg></div>
+  <div class="hero-grid" aria-hidden="true"></div>
+  <div class="container">
+    <div>
+      <span class="hero-label">科大讯飞星火大模型驱动</span>
+      <h1 class="hero-title">
+        <span class="highlight">智研平台</span><br>
+        AI 深度研究与产业链招商决策引擎
+      </h1>
+      <p class="hero-desc">
+        基于科大讯飞星火大模型，为政府招商部门与产业园区提供从<strong>摸清家底</strong>到<strong>招商培育</strong>的一站式产业研究与决策服务，把分散的产业数据变成可落地的招商线索。
+      </p>
+      <div class="hero-actions">
+        <button class="btn btn-primary" onclick="openModal()">
+          立即申请体验 →
+        </button>
+        <button class="btn btn-outline" onclick="document.getElementById('workflow').scrollIntoView({behavior:'smooth'})">
+          查看招商全链路 →
+        </button>
+      </div>
+      <p class="hero-note">
+        适用于产业链图谱构建、招商线索挖掘、企业尽调研判、惠企政策匹配等场景
+      </p>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+          <h3 style="margin:0">新能源汽车产业链图谱</h3>
+          <span style="font-size:12px;color:var(--gray-500);background:var(--gray-100);padding:4px 10px;border-radius:12px">产业链示例</span>
+        </div>
+        <div style="position:relative;padding:24px 0">
+          <!-- 流程箭头背景 -->
+          <div style="position:absolute;top:50%;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gray-200) 15%,var(--gray-200) 85%,transparent);z-index:0"></div>
+
+          <!-- 三大环节 -->
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;position:relative;z-index:1">
+            <!-- 上游 -->
+            <div style="background:linear-gradient(135deg,#ECFDF5 0%,#D1FAE5 100%);border:2px solid #10B981;border-radius:12px;padding:20px;box-shadow:0 4px 12px rgba(16,185,129,.15);position:relative">
+              <div style="position:absolute;top:-10px;left:12px;background:#10B981;color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:6px;letter-spacing:.05em">上游：研发与制造</div>
+              <!-- 图标 -->
+              <div style="text-align:center;margin-bottom:12px">
+                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" style="margin:0 auto">
+                  <rect x="8" y="16" width="32" height="24" rx="2" fill="#10B981" opacity="0.2"/>
+                  <rect x="12" y="20" width="8" height="16" fill="#10B981"/>
+                  <rect x="24" y="24" width="8" height="12" fill="#059669"/>
+                  <rect x="12" y="12" width="24" height="4" rx="1" fill="#047857"/>
+                </svg>
+              </div>
+              <div style="font-size:15px;font-weight:700;color:#065F46;margin-bottom:12px;text-align:center">原材料与组件</div>
+              <div style="display:flex;gap:8px;margin-bottom:10px">
+                <div style="flex:1;background:#fff;border-radius:6px;padding:8px;text-align:center;box-shadow:0 2px 4px rgba(0,0,0,.05)">
+                  <div style="font-size:20px;font-weight:900;color:#10B981">42</div>
+                  <div style="font-size:11px;color:#6B7280;margin-top:2px">企业</div>
+                </div>
+                <div style="flex:1;background:#fff;border-radius:6px;padding:8px;text-align:center;box-shadow:0 2px 4px rgba(0,0,0,.05)">
+                  <div style="font-size:20px;font-weight:900;color:#10B981">68</div>
+                  <div style="font-size:11px;color:#6B7280;margin-top:2px">亿产值</div>
+                </div>
+              </div>
+              <div style="font-size:12px;color:#047857;line-height:1.5">
+                <span style="display:inline-block;background:#fff;padding:3px 8px;border-radius:4px;margin:2px;font-size:11px;border:1px solid #D1FAE5">锂电材料</span>
+                <span style="display:inline-block;background:#fff;padding:3px 8px;border-radius:4px;margin:2px;font-size:11px;border:1px solid #D1FAE5">正极材料</span>
+                <span style="display:inline-block;background:#fff;padding:3px 8px;border-radius:4px;margin:2px;font-size:11px;border:1px solid #D1FAE5">电解液</span>
+              </div>
+              <!-- 箭头 -->
+              <div style="position:absolute;right:-20px;top:50%;transform:translateY(-50%);width:0;height:0;border-left:12px solid #10B981;border-top:8px solid transparent;border-bottom:8px solid transparent;z-index:2"></div>
+            </div>
+
+            <!-- 中游 -->
+            <div style="background:linear-gradient(135deg,#EFF6FF 0%,#DBEAFE 100%);border:2px solid #3B82F6;border-radius:12px;padding:20px;box-shadow:0 4px 12px rgba(59,130,246,.15);position:relative">
+              <div style="position:absolute;top:-10px;left:12px;background:#3B82F6;color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:6px;letter-spacing:.05em">中游：核心部件</div>
+              <!-- 图标 -->
+              <div style="text-align:center;margin-bottom:12px">
+                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" style="margin:0 auto">
+                  <circle cx="24" cy="24" r="16" fill="#3B82F6" opacity="0.2"/>
+                  <circle cx="24" cy="24" r="10" fill="#3B82F6"/>
+                  <circle cx="24" cy="24" r="4" fill="#fff"/>
+                  <rect x="22" y="8" width="4" height="8" rx="1" fill="#2563EB"/>
+                  <rect x="22" y="32" width="4" height="8" rx="1" fill="#2563EB"/>
+                  <rect x="8" y="22" width="8" height="4" rx="1" fill="#2563EB"/>
+                  <rect x="32" y="22" width="8" height="4" rx="1" fill="#2563EB"/>
+                </svg>
+              </div>
+              <div style="font-size:15px;font-weight:700;color:#1E40AF;margin-bottom:12px;text-align:center">核心零部件</div>
+              <div style="display:flex;gap:8px;margin-bottom:10px">
+                <div style="flex:1;background:#fff;border-radius:6px;padding:8px;text-align:center;box-shadow:0 2px 4px rgba(0,0,0,.05)">
+                  <div style="font-size:20px;font-weight:900;color:#3B82F6">56</div>
+                  <div style="font-size:11px;color:#6B7280;margin-top:2px">企业</div>
+                </div>
+                <div style="flex:1;background:#fff;border-radius:6px;padding:8px;text-align:center;box-shadow:0 2px 4px rgba(0,0,0,.05)">
+                  <div style="font-size:20px;font-weight:900;color:#3B82F6">3</div>
+                  <div style="font-size:11px;color:#6B7280;margin-top:2px">链主</div>
+                </div>
+              </div>
+              <div style="font-size:12px;color:#1E3A8A;line-height:1.5">
+                <span style="display:inline-block;background:#fff;padding:3px 8px;border-radius:4px;margin:2px;font-size:11px;border:1px solid #DBEAFE">动力电池</span>
+                <span style="display:inline-block;background:#fff;padding:3px 8px;border-radius:4px;margin:2px;font-size:11px;border:1px solid #DBEAFE">智能座舱</span>
+                <span style="display:inline-block;background:#fff;padding:3px 8px;border-radius:4px;margin:2px;font-size:11px;border:1px solid #DBEAFE">驱动系统</span>
+              </div>
+              <!-- 箭头 -->
+              <div style="position:absolute;right:-20px;top:50%;transform:translateY(-50%);width:0;height:0;border-left:12px solid #3B82F6;border-top:8px solid transparent;border-bottom:8px solid transparent;z-index:2"></div>
+            </div>
+
+            <!-- 下游 -->
+            <div style="background:linear-gradient(135deg,#F5F3FF 0%,#EDE9FE 100%);border:2px solid #8B5CF6;border-radius:12px;padding:20px;box-shadow:0 4px 12px rgba(139,92,246,.15);position:relative">
+              <div style="position:absolute;top:-10px;left:12px;background:#8B5CF6;color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:6px;letter-spacing:.05em">下游：应用与服务</div>
+              <!-- 图标 -->
+              <div style="text-align:center;margin-bottom:12px">
+                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" style="margin:0 auto">
+                  <path d="M12 32L12 20C12 18 13 16 15 16L33 16C35 16 36 18 36 20L36 32" stroke="#8B5CF6" stroke-width="3" fill="none"/>
+                  <rect x="10" y="32" width="28" height="4" rx="1" fill="#8B5CF6"/>
+                  <circle cx="16" cy="24" r="2" fill="#8B5CF6"/>
+                  <circle cx="32" cy="24" r="2" fill="#8B5CF6"/>
+                  <path d="M20 26C20 28 22 29 24 29C26 29 28 28 28 26" stroke="#8B5CF6" stroke-width="2" fill="none"/>
+                </svg>
+              </div>
+              <div style="font-size:15px;font-weight:700;color:#5B21B6;margin-bottom:12px;text-align:center">整车与服务</div>
+              <div style="display:flex;gap:8px;margin-bottom:10px">
+                <div style="flex:1;background:#fff;border-radius:6px;padding:8px;text-align:center;box-shadow:0 2px 4px rgba(0,0,0,.05)">
+                  <div style="font-size:20px;font-weight:900;color:#8B5CF6">6</div>
+                  <div style="font-size:11px;color:#6B7280;margin-top:2px">企业</div>
+                </div>
+                <div style="flex:1;background:#fff;border-radius:6px;padding:8px;text-align:center;box-shadow:0 2px 4px rgba(0,0,0,.05)">
+                  <div style="font-size:20px;font-weight:900;color:#8B5CF6">129</div>
+                  <div style="font-size:11px;color:#6B7280;margin-top:2px">亿产值</div>
+                </div>
+              </div>
+              <div style="font-size:12px;color:#6B21A8;line-height:1.5">
+                <span style="display:inline-block;background:#fff;padding:3px 8px;border-radius:4px;margin:2px;font-size:11px;border:1px solid #EDE9FE">乘用车</span>
+                <span style="display:inline-block;background:#fff;padding:3px 8px;border-radius:4px;margin:2px;font-size:11px;border:1px solid #EDE9FE">商用车</span>
+                <span style="display:inline-block;background:#fff;padding:3px 8px;border-radius:4px;margin:2px;font-size:11px;border:1px solid #EDE9FE">充电服务</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 断链风险提示 -->
+        <div style="margin-top:20px;padding:14px 16px;background:linear-gradient(135deg,#FEF3C7,#FDE68A);border-left:4px solid #F59E0B;border-radius:8px;display:flex;gap:12px;align-items:start">
+          <div style="font-size:20px;line-height:1">⚠️</div>
+          <div style="flex:1">
+            <div style="font-size:13px;font-weight:700;color:#92400E;margin-bottom:4px">断链风险识别</div>
+            <div style="font-size:12px;color:#78350F;line-height:1.6">车规级芯片、激光雷达本地供应不足，建议重点引进上游配套企业</div>
+          </div>
+        </div>
+        <!-- 数据来源 -->
+        <div style="margin-top:16px;text-align:center;font-size:11px;color:var(--gray-500)">
+          数据来源：市场监管局、发改委、商务局、税务局、统计局、海关 · 智研平台整合
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="pain">
+  <div class="container">
+    <div class="section-label">CORE CHALLENGES · 核心挑战</div>
+    <h2 class="section-title">直击传统招商四大痛点</h2>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:32px;margin-top:48px;max-width:1000px;margin-left:auto;margin-right:auto">
+      <div class="card" style="display:flex;gap:20px;align-items:start">
+        <div style="flex-shrink:0;width:64px;height:64px;border-radius:12px;background:linear-gradient(135deg,#E0EFFF,#C7E2FF);display:grid;place-items:center">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#1366F0" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+        </div>
+        <div style="flex:1">
+          <span class="card-num">01</span>
+          <h3>产业家底看不清</h3>
+          <p>数据散落多个系统，产业链结构不清晰，底数靠报表拼凑</p>
+        </div>
+      </div>
+      <div class="card" style="display:flex;gap:20px;align-items:start">
+        <div style="flex-shrink:0;width:64px;height:64px;border-radius:12px;background:linear-gradient(135deg,#DDD6FE,#C4B5FD);display:grid;place-items:center">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6l4 2"/>
+          </svg>
+        </div>
+        <div style="flex:1">
+          <span class="card-num">02</span>
+          <h3>招商对象找不准</h3>
+          <p>靠人脉与经验推荐，缺乏量化筛选依据，命中率难预估</p>
+        </div>
+      </div>
+      <div class="card" style="display:flex;gap:20px;align-items:start">
+        <div style="flex-shrink:0;width:64px;height:64px;border-radius:12px;background:linear-gradient(135deg,#BFDBFE,#93C5FD);display:grid;place-items:center">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4M12 16h.01"/>
+          </svg>
+        </div>
+        <div style="flex:1">
+          <span class="card-num">03</span>
+          <h3>企业风险研不透</h3>
+          <p>外地企业背景不全，尽调证据高度分散，研判周期长</p>
+        </div>
+      </div>
+      <div class="card" style="display:flex;gap:20px;align-items:start">
+        <div style="flex-shrink:0;width:64px;height:64px;border-radius:12px;background:linear-gradient(135deg,#E9D5FF,#D8B4FE);display:grid;place-items:center">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#9333EA" stroke-width="2">
+            <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+        </div>
+        <div style="flex:1">
+          <span class="card-num">04</span>
+          <h3>惠企政策送不到</h3>
+          <p>政策条件靠人工核验，企业匹配效率低，兑现不及时</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<section class="section" id="capability">
+  <div class="container">
+    <div class="section-label">CORE CAPABILITIES · 核心能力</div>
+    <h2 class="section-title">六大核心能力</h2>
+    <div class="cap-grid" style="margin-top:48px">
+      <div class="cap">
+        <div class="cap-icon">
+          <svg viewBox="0 0 24 24"><path d="M4 19V5M4 19h16"/><path d="M7.5 15.5l3.5-4.5 3 2.5 4.5-6"/></svg>
+        </div>
+        <div>
+          <h3>招商决策看板</h3>
+          <p>线索转化、项目进度、区域对比与产业趋势集中呈现，支撑例会调度与年度目标复盘。</p>
+          <ul><li>漏斗转化</li><li>区域对比</li><li>趋势预测</li></ul>
+        </div>
+      </div>
+      <div class="cap">
+        <div class="cap-icon">
+          <svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>
+        </div>
+        <div>
+          <h3>AI 深度研究报告</h3>
+          <p>输入一个产业、区域或企业，模型自动检索多源数据并生成带数据出处的研究报告。</p>
+          <ul><li>多源检索</li><li>观点溯源</li><li>一键成稿</li></ul>
+        </div>
+      </div>
+      <div class="cap">
+        <div class="cap-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 3v4M6 21v-5M18 21v-5M6 16h12M12 7v9"/><circle cx="12" cy="3" r="1.6"/><circle cx="6" cy="21" r="1.6"/><circle cx="18" cy="21" r="1.6"/></svg>
+        </div>
+        <div>
+          <h3>产业链图谱</h3>
+          <p>拆解产业链上中下游环节，落图呈现本地企业分布、环节强弱与断点，家底一目了然。</p>
+          <ul><li>环节拆解</li><li>企业落图</li><li>断链识别</li></ul>
+        </div>
+      </div>
+      <div class="cap">
+        <div class="cap-icon">
+          <svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21M8 10.5h5M10.5 8v5"/></svg>
+        </div>
+        <div>
+          <h3>招商线索挖掘</h3>
+          <p>结合扩产、融资、专利与迁移信号，按缺失环节反向推荐目标企业并给出匹配度排序。</p>
+          <ul><li>信号监测</li><li>匹配度打分</li><li>线索推送</li></ul>
+        </div>
+      </div>
+      <div class="cap">
+        <div class="cap-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 3l8 3.5v5.8c0 4.4-3.3 7.6-8 8.7-4.7-1.1-8-4.3-8-8.7V6.5z"/><path d="M9.2 12.2l2 2 3.6-3.9"/></svg>
+        </div>
+        <div>
+          <h3>企业尽调与风险预警</h3>
+          <p>工商、司法、失信、知产、经营异常多维交叉核验，风险分级提示，尽调有据可循。</p>
+          <ul><li>多维核验</li><li>风险分级</li><li>动态监控</li></ul>
+        </div>
+      </div>
+      <div class="cap">
+        <div class="cap-icon">
+          <svg viewBox="0 0 24 24"><path d="M4 5h11l5 5v9a1.5 1.5 0 0 1-1.5 1.5H5.5A1.5 1.5 0 0 1 4 19z"/><path d="M8 10h5M8 14h8"/></svg>
+        </div>
+        <div>
+          <h3>惠企政策匹配</h3>
+          <p>政策条款结构化入库，与企业画像逐条比对，自动生成可申报政策与差距项说明。</p>
+          <ul><li>条款结构化</li><li>企业画像</li><li>免申即享</li></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="workflow">
+  <div class="container">
+    <div class="section-label">FULL-CHAIN WORKFLOW · 招商全链路</div>
+    <h2 class="section-title">招商全链路赋能</h2>
+    <div class="wf-flow">
+      <div class="card wf-card">
+        <span class="card-num">01</span>
+        <h3>摸清产业家底</h3>
+        <p>一图看清本地产业链上中下游分布与缺失环节</p>
+        <em>产出：产业链全景图谱</em>
+      </div>
+      <div class="wf-arrow" aria-hidden="true">→</div>
+      <div class="card wf-card">
+        <span class="card-num">02</span>
+        <h3>发现招商线索</h3>
+        <p>按缺失环节反向锁定外地目标企业与投资动向</p>
+        <em>产出：目标企业清单</em>
+      </div>
+      <div class="wf-arrow" aria-hidden="true">→</div>
+      <div class="card wf-card">
+        <span class="card-num">03</span>
+        <h3>企业尽调研判</h3>
+        <p>工商、司法、知产、经营多源交叉，自动成稿</p>
+        <em>产出：企业尽调报告</em>
+      </div>
+      <div class="wf-arrow" aria-hidden="true">→</div>
+      <div class="card wf-card">
+        <span class="card-num">04</span>
+        <h3>政策精准匹配</h3>
+        <p>政策条款结构化拆解，与企业画像自动比对</p>
+        <em>产出：政策匹配建议</em>
+      </div>
+      <div class="wf-arrow" aria-hidden="true">→</div>
+      <div class="card wf-card">
+        <span class="card-num">05</span>
+        <h3>落地扶持培育</h3>
+        <p>项目落地全周期跟踪，梯度培育持续跟进</p>
+        <em>产出：培育跟踪台账</em>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" id="nationwide">
+  <div class="container">
+    <div class="section-label">NATIONWIDE COVERAGE · 全国企业库</div>
+    <h2 class="section-title">汇聚全国优质企业</h2>
+    <p class="section-desc">覆盖全国 34 个省级行政区，超 6000 万家企业主体数据，按产业链环节精准定位可招引目标</p>
+    <div class="nw-mapwrap">
+      <img src="nationwide-map.png" alt="全国优质企业汇聚地图" class="nw-map-img" style="width:100%; height:auto; border-radius:12px; box-shadow:0 8px 24px rgba(46,126,255,.12)"/>
+    </div>
+    <div class="nw-stats">
+      <div class="nw-stat"><b>6000 万+</b><span>企业主体</span></div>
+      <div class="nw-stat"><b>34 个</b><span>省级行政区</span></div>
+      <div class="nw-stat"><b>4300 万+</b><span>高成长企业</span></div>
+      <div class="nw-stat"><b>6 类</b><span>数据维度</span></div>
+    </div>
+    <p style="text-align:center;font-size:13px;color:var(--gray-500);margin-top:18px">
+      数据来源：市场监管总局、税务总局、国家知识产权局、海关总署 · 智研平台整合更新
+    </p>
+  </div>
+</section>
+<section class="section" id="data">
+  <div class="container">
+    <div class="section-label">DATA FOUNDATION · 数据底座</div>
+    <h2 class="section-title">数据与模型底座</h2>
+    <div class="card-grid" style="grid-template-columns:repeat(4,1fr); margin-top:48px">
+      <div class="card" style="text-align:center">
+        <div style="font-size:40px; font-weight:900; color:var(--blue-600); margin-bottom:8px">6000<small style="font-size:20px">万+</small></div>
+        <p style="margin:0">全国企业主体数据</p>
+      </div>
+      <div class="card" style="text-align:center">
+        <div style="font-size:40px; font-weight:900; color:var(--blue-600); margin-bottom:8px">6<small style="font-size:20px">大</small></div>
+        <p style="margin:0">政府部门权威信源</p>
+      </div>
+      <div class="card" style="text-align:center">
+        <div style="font-size:40px; font-weight:900; color:var(--blue-600); margin-bottom:8px">10<small style="font-size:20px">大+</small></div>
+        <p style="margin:0">热门产业链 AI 辅助构建</p>
+      </div>
+      <div class="card" style="text-align:center">
+        <div style="font-size:40px; font-weight:900; color:var(--blue-600); margin-bottom:8px">10<small style="font-size:20px">分钟</small></div>
+        <p style="margin:0">生成一份研究报告</p>
+      </div>
+    </div>
+    <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:12px; margin-top:32px">
+      <span style="padding:8px 16px; background:var(--blue-50); border:1px solid var(--blue-200); border-radius:6px; color:var(--blue-700); font-weight:500">市场监管</span>
+      <span style="padding:8px 16px; background:var(--blue-50); border:1px solid var(--blue-200); border-radius:6px; color:var(--blue-700); font-weight:500">发改委</span>
+      <span style="padding:8px 16px; background:var(--blue-50); border:1px solid var(--blue-200); border-radius:6px; color:var(--blue-700); font-weight:500">商务局</span>
+      <span style="padding:8px 16px; background:var(--blue-50); border:1px solid var(--blue-200); border-radius:6px; color:var(--blue-700); font-weight:500">税务</span>
+      <span style="padding:8px 16px; background:var(--blue-50); border:1px solid var(--blue-200); border-radius:6px; color:var(--blue-700); font-weight:500">统计</span>
+      <span style="padding:8px 16px; background:var(--blue-50); border:1px solid var(--blue-200); border-radius:6px; color:var(--blue-700); font-weight:500">海关</span>
+    </div>
+    <p style="text-align:center; margin-top:24px; color:var(--gray-600); font-size:14px">
+      星火大模型 · 产业知识增强 · 政务级私有化部署 · 数据不出域
+    </p>
+  </div>
+</section>
+
+
+<section class="section" id="scene">
+  <div class="container">
+    <div class="section-label">USE CASES · 应用场景</div>
+    <h2 class="section-title">典型业务场景</h2>
+    <p class="section-desc">从线索发现到招商落地，全流程数字化支撑</p>
+
+    <!-- 场景1：产业运行监测 -->
+    <div style="margin-top:64px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center">
+        <div>
+          <div style="display:inline-block;padding:6px 16px;border-radius:20px;background:var(--blue-100);color:var(--blue-700);font-size:14px;font-weight:600;margin-bottom:20px">场景 01</div>
+          <h3 style="font-size:32px;font-weight:900;margin-bottom:16px">产业运行监测</h3>
+          <p style="font-size:18px;color:var(--gray-600);line-height:1.7;margin-bottom:24px">一屏掌握区域产业运行态势，产业集群、产业结构、企业增减与迁移动态实时可视</p>
+          <ul style="list-style:none;padding:0">
+            <li style="padding:12px 0;border-bottom:1px solid var(--gray-200);display:flex;gap:12px">
+              <span style="color:var(--blue-600);font-weight:700">✓</span>
+              <span><strong>产业集群热力：</strong>重点集群空间分布与产业密度实时测算</span>
+            </li>
+            <li style="padding:12px 0;border-bottom:1px solid var(--gray-200);display:flex;gap:12px">
+              <span style="color:var(--blue-600);font-weight:700">✓</span>
+              <span><strong>产业结构分析：</strong>主导产业 GDP 贡献榜、产业结构占比动态追踪</span>
+            </li>
+            <li style="padding:12px 0;border-bottom:1px solid var(--gray-200);display:flex;gap:12px">
+              <span style="color:var(--blue-600);font-weight:700">✓</span>
+              <span><strong>新增注销监测：</strong>企业新增、注销、吊销数据按月对比，识别行业景气度</span>
+            </li>
+            <li style="padding:12px 0;display:flex;gap:12px">
+              <span style="color:var(--blue-600);font-weight:700">✓</span>
+              <span><strong>重点企业榜单：</strong>企业纳税贡献榜、企业创新发明专利榜一目了然</span>
+            </li>
+          </ul>
+        </div>
+        <div style="background:#fff;border-radius:16px;padding:24px;box-shadow:var(--shadow-lg);border:1px solid var(--gray-200)">
+          <img src="images/industry-dashboard.png" alt="产业运行看板" style="width:100%;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.1)">
+        </div>
+      </div>
+    </div>
+
+    <!-- 场景2：企业流动洞察 -->
+    <div style="margin-top:80px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center">
+        <div style="background:#fff;border-radius:16px;padding:24px;box-shadow:var(--shadow-lg);border:1px solid var(--gray-200);order:1">
+          <img src="images/migration-map.png" alt="企业迁入迁出地图：跨地区企业流动全景，迁入来源与迁出流向可视化" style="width:100%;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.1)">
+        </div>
+        <div style="order:2">
+          <div style="display:inline-block;padding:6px 16px;border-radius:20px;background:var(--blue-100);color:var(--blue-700);font-size:14px;font-weight:600;margin-bottom:20px">场景 02</div>
+          <h3 style="font-size:32px;font-weight:900;margin-bottom:16px">企业流动洞察</h3>
+          <p style="font-size:18px;color:var(--gray-600);line-height:1.7;margin-bottom:24px">跨地区企业流动全景可视，迁入来源与迁出流向逐笔追溯，重点企业外迁及时预警</p>
+          <ul style="list-style:none;padding:0">
+            <li style="padding:12px 0;border-bottom:1px solid var(--gray-200);display:flex;gap:12px">
+              <span style="color:var(--blue-600);font-weight:700">✓</span>
+              <span><strong>迁入来源分析：</strong>按来源城市排名统计迁入企业，识别重点承接方向</span>
+            </li>
+            <li style="padding:12px 0;border-bottom:1px solid var(--gray-200);display:flex;gap:12px">
+              <span style="color:var(--blue-600);font-weight:700">✓</span>
+              <span><strong>迁出流向追踪：</strong>本地企业外迁目的地逐笔记录，净流入流出实时测算</span>
+            </li>
+            <li style="padding:12px 0;border-bottom:1px solid var(--gray-200);display:flex;gap:12px">
+              <span style="color:var(--blue-600);font-weight:700">✓</span>
+              <span><strong>外迁风险预警：</strong>重点企业注册地变更、股权迁移信号及时提示</span>
+            </li>
+            <li style="padding:12px 0;display:flex;gap:12px">
+              <span style="color:var(--blue-600);font-weight:700">✓</span>
+              <span><strong>AI 总结解读：</strong>自动生成流动态势分析，输出区域间产业转移结论</span>
+            </li>
+          </ul>
+          <p style="font-size:13px;color:var(--gray-500);margin-top:18px">数据来源：市场监管局登记变更数据 · 智研平台整合测算</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 场景3：招商线索发现 -->
+    <div style="margin-top:80px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center">
+        <div>
+          <div style="display:inline-block;padding:6px 16px;border-radius:20px;background:var(--blue-100);color:var(--blue-700);font-size:14px;font-weight:600;margin-bottom:20px">场景 03</div>
+          <h3 style="font-size:32px;font-weight:900;margin-bottom:16px">招商线索雷达</h3>
+          <p style="font-size:18px;color:var(--gray-600);line-height:1.7;margin-bottom:24px">从产业链图谱出发，快速发现本地培育企业与外地招商目标</p>
+          <ul style="list-style:none;padding:0">
+            <li style="padding:12px 0;border-bottom:1px solid var(--gray-200);display:flex;gap:12px">
+              <span style="color:var(--blue-600);font-weight:700">✓</span>
+              <span><strong>产业链分析：</strong>自动识别断链环节，推荐补链企业</span>
+            </li>
+            <li style="padding:12px 0;border-bottom:1px solid var(--gray-200);display:flex;gap:12px">
+              <span style="color:var(--blue-600);font-weight:700">✓</span>
+              <span><strong>智能检索：</strong>6000 万企业实时搜索，支持行业、区域、规模筛选</span>
+            </li>
+            <li style="padding:12px 0;border-bottom:1px solid var(--gray-200);display:flex;gap:12px">
+              <span style="color:var(--blue-600);font-weight:700">✓</span>
+              <span><strong>招商评估模型：</strong>财务、技术、市场地位、产业适配、司法风险等精准评估推荐</span>
+            </li>
+            <li style="padding:12px 0;display:flex;gap:12px">
+              <span style="color:var(--blue-600);font-weight:700">✓</span>
+              <span><strong>关注名单管理：</strong>本地培育、外地招商、初步关注三类分组</span>
+            </li>
+          </ul>
+        </div>
+        <div style="background:#fff;border-radius:16px;padding:24px;box-shadow:var(--shadow-lg);border:1px solid var(--gray-200)">
+          <img src="images/lead-radar.png" alt="招商线索雷达" style="width:100%;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.1)">
+        </div>
+      </div>
+    </div>
+
+    <!-- 场景4：企业尽调 -->
+    <div style="margin-top:80px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center">
+        <div style="background:#fff;border-radius:16px;padding:24px;box-shadow:var(--shadow-lg);border:1px solid var(--gray-200);order:1">
+          <img src="images/due-diligence.png" alt="企业尽调报告" style="width:100%;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.1)">
+        </div>
+        <div style="order:2">
+          <div style="display:inline-block;padding:6px 16px;border-radius:20px;background:var(--blue-100);color:var(--blue-700);font-size:14px;font-weight:600;margin-bottom:20px">场景 04</div>
+          <h3 style="font-size:32px;font-weight:900;margin-bottom:16px">企业尽调助手</h3>
+          <p style="font-size:18px;color:var(--gray-600);line-height:1.7;margin-bottom:24px">整合工商、财务、司法、舆情数据，3 分钟生成可追溯尽调报告</p>
+          <ul style="list-style:none;padding:0">
+            <li style="padding:12px 0;border-bottom:1px solid var(--gray-200);display:flex;gap:12px">
+              <span style="color:var(--blue-600);font-weight:700">✓</span>
+              <span><strong>一键生成：</strong>基本信息、经营状况、财务健康度、风险预警</span>
+            </li>
+            <li style="padding:12px 0;border-bottom:1px solid var(--gray-200);display:flex;gap:12px">
+              <span style="color:var(--blue-600);font-weight:700">✓</span>
+              <span><strong>招商适配分析：</strong>产业链定位、本地配套、扩张信号识别</span>
+            </li>
+            <li style="padding:12px 0;border-bottom:1px solid var(--gray-200);display:flex;gap:12px">
+              <span style="color:var(--blue-600);font-weight:700">✓</span>
+              <span><strong>数据溯源：</strong>每条结论标注来源、时间、版本快照</span>
+            </li>
+            <li style="padding:12px 0;display:flex;gap:12px">
+              <span style="color:var(--blue-600);font-weight:700">✓</span>
+              <span><strong>历史版本管理：</strong>支持迭代更新、对比查看、Word/PDF 导出</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 场景5：政策匹配服务 -->
+    <div style="margin-top:80px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center">
+        <div>
+          <div style="display:inline-block;padding:6px 16px;border-radius:20px;background:var(--blue-100);color:var(--blue-700);font-size:14px;font-weight:600;margin-bottom:20px">场景 05</div>
+          <h3 style="font-size:32px;font-weight:900;margin-bottom:16px">政策匹配服务</h3>
+          <p style="font-size:18px;color:var(--gray-600);line-height:1.7;margin-bottom:24px">政策条款结构化解析，与企业画像自动比对，实现惠企政策精准推送</p>
+          <ul style="list-style:none;padding:0">
+            <li style="padding:12px 0;border-bottom:1px solid var(--gray-200);display:flex;gap:12px">
+              <span style="color:var(--blue-600);font-weight:700">✓</span>
+              <span><strong>政策库结构化：</strong>自动拆解申报条件、资金额度、时间节点</span>
+            </li>
+            <li style="padding:12px 0;border-bottom:1px solid var(--gray-200);display:flex;gap:12px">
+              <span style="color:var(--blue-600);font-weight:700">✓</span>
+              <span><strong>智能匹配：</strong>企业画像与政策条件自动比对，生成匹配度评分</span>
+            </li>
+            <li style="padding:12px 0;border-bottom:1px solid var(--gray-200);display:flex;gap:12px">
+              <span style="color:var(--blue-600);font-weight:700">✓</span>
+              <span><strong>免申即享：</strong>符合条件企业自动推送，减少人工核验成本</span>
+            </li>
+            <li style="padding:12px 0;display:flex;gap:12px">
+              <span style="color:var(--blue-600);font-weight:700">✓</span>
+              <span><strong>政策追踪：</strong>申报进度、兑现状态全流程记录</span>
+            </li>
+          </ul>
+        </div>
+        <div style="background:#fff;border-radius:16px;padding:24px;box-shadow:var(--shadow-lg);border:1px solid var(--gray-200)">
+          <img src="images/policy-match.png" alt="政策匹配服务" style="width:100%;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.1)">
+        </div>
+      </div>
+    </div>
+
+    <!-- 三大用户类型 -->
+    <div style="margin-top:80px">
+      <h3 style="font-size:28px;font-weight:900;text-align:center;margin-bottom:48px">覆盖三大用户角色</h3>
+      <div class="card-grid">
+        <div class="card">
+          <span class="card-num">GOVERNMENT</span>
+          <h3>政府招商部门</h3>
+          <p style="margin-bottom:16px">年度招商目标拆解、重点产业专题研究、外出招商行前研判与线索储备</p>
+          <div style="font-size:13px;color:var(--gray-600);line-height:1.7">
+            <strong>典型岗位：</strong>招商局局长、产业招商科科长、招商专员<br>
+            <strong>核心诉求：</strong>快速筛选目标企业、批量生成尽调报告、跟踪落地进度
+          </div>
+        </div>
+        <div class="card">
+          <span class="card-num">PARK</span>
+          <h3>产业园区</h3>
+          <p style="margin-bottom:16px">园区产业定位、存量企业梯度培育、空间与产业匹配的精准入园筛选</p>
+          <div style="font-size:13px;color:var(--gray-600);line-height:1.7">
+            <strong>典型岗位：</strong>园区管委会主任、招商运营经理、企业服务专员<br>
+            <strong>核心诉求：</strong>摸清园区产业底数、识别培育潜力企业、优化产业结构
+          </div>
+        </div>
+        <div class="card">
+          <span class="card-num">RESEARCH</span>
+          <h3>产业研究机构</h3>
+          <p style="margin-bottom:16px">产业链课题研究、区域竞争力对比、专题报告快速成稿与数据溯源</p>
+          <div style="font-size:13px;color:var(--gray-600);line-height:1.7">
+            <strong>典型岗位：</strong>产业分析师、课题研究员、报告撰写人<br>
+            <strong>核心诉求：</strong>产业链全景分析、企业数据批量导出、图表自动生成
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background:linear-gradient(135deg,var(--blue-600),var(--blue-700)); color:#fff">
+  <div class="container" style="text-align:center">
+    <h2 style="font-size:36px; font-weight:900; margin-bottom:16px; color:#fff">让每一次招商，都有数据支撑</h2>
+    <p style="font-size:18px; opacity:.9; margin-bottom:40px">支持私有化部署与本地数据融合，欢迎预约演示与专题汇报</p>
+    <button class="btn" style="background:#fff; color:var(--blue-600); font-weight:700" onclick="openModal()">
+      立即申请体验 →
+    </button>
+    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:24px; margin-top:60px; padding-top:40px; border-top:1px solid rgba(255,255,255,.2)">
+      <div>
+        <div style="font-size:14px; opacity:.8; margin-bottom:8px">01 提交申请</div>
+        <div style="font-size:16px; font-weight:600">填写体验信息</div>
+      </div>
+      <div>
+        <div style="font-size:14px; opacity:.8; margin-bottom:8px">02 资质审核</div>
+        <div style="font-size:16px; font-weight:600">1 个工作日内完成</div>
+      </div>
+      <div>
+        <div style="font-size:14px; opacity:.8; margin-bottom:8px">03 开通账号</div>
+        <div style="font-size:16px; font-weight:600">获得体验租户</div>
+      </div>
+      <div>
+        <div style="font-size:14px; opacity:.8; margin-bottom:8px">04 专人对接</div>
+        <div style="font-size:16px; font-weight:600">提供使用指导</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:48px">
+      <div>
+        <div class="footer-brand">
+          <svg width="28" height="28" viewBox="0 0 48 48" fill="none" style="display:block">
+            <path d="M24 4L38 13V31L24 40L10 31V13L24 4Z" fill="url(#grad2)" stroke="#1366F0" stroke-width="2" stroke-linejoin="round"/>
+            <circle cx="24" cy="18" r="2.5" fill="#fff"/>
+            <circle cx="18" cy="24" r="2.5" fill="#fff"/>
+            <circle cx="30" cy="24" r="2.5" fill="#fff"/>
+            <circle cx="24" cy="30" r="2.5" fill="#fff"/>
+            <line x1="24" y1="18" x2="18" y2="24" stroke="#fff" stroke-width="1.5" opacity="0.8"/>
+            <line x1="24" y1="18" x2="30" y2="24" stroke="#fff" stroke-width="1.5" opacity="0.8"/>
+            <line x1="18" y1="24" x2="24" y2="30" stroke="#fff" stroke-width="1.5" opacity="0.8"/>
+            <line x1="30" y1="24" x2="24" y2="30" stroke="#fff" stroke-width="1.5" opacity="0.8"/>
+            <circle cx="24" cy="24" r="1.5" fill="#FFF" opacity="0.9"/>
+            <defs>
+              <linearGradient id="grad2" x1="24" y1="4" x2="24" y2="40" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#2E7EFF"/>
+                <stop offset="100%" stop-color="#1366F0"/>
+              </linearGradient>
+            </defs>
+          </svg>
+          <span class="footer-brand-text">智研平台</span>
+        </div>
+        <p class="footer-tagline">用数据看清产业，用模型选对企业。</p>
+      </div>
+      <div class="footer-certs">
+        <div class="footer-cert">
+          <div class="footer-cert-icon">🛡️</div>
+          <div class="footer-cert-text">国家信息安全<br>等级保护三级</div>
+        </div>
+        <div class="footer-cert">
+          <div class="footer-cert-icon">✓</div>
+          <div class="footer-cert-text">可靠的 SLA<br>保障承诺</div>
+        </div>
+        <div class="footer-cert">
+          <div class="footer-cert-icon">👥</div>
+          <div class="footer-cert-text">资深工程师<br>专业支持</div>
+        </div>
+        <div class="footer-cert">
+          <div class="footer-cert-icon">📊</div>
+          <div class="footer-cert-text">大客户 1V1<br>专享服务</div>
+        </div>
+        <div class="footer-cert">
+          <div class="footer-cert-icon">⚡</div>
+          <div class="footer-cert-text">乐享会员<br>优先响应</div>
+        </div>
+        <div class="footer-cert">
+          <div class="footer-cert-icon">💎</div>
+          <div class="footer-cert-text">服务可用性<br>≥99.9%</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-contact">
+      <div class="footer-contact-title">联系我们</div>
+      <div class="footer-contact-grid">
+        <div class="footer-contact-item">
+          <span class="footer-contact-label">商务合作</span>
+          <a href="mailto:msp_business@iflytek.com">msp_business@iflytek.com</a>
+        </div>
+        <div class="footer-contact-item">
+          <span class="footer-contact-label">生态合作</span>
+          <a href="mailto:startup@iflytek.com">startup@iflytek.com</a>
+        </div>
+        <div class="footer-contact-item">
+          <span class="footer-contact-label">市场合作</span>
+          <a href="mailto:Cloud_Market@iflytek.com">Cloud_Market@iflytek.com</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      版权所有 © 科大讯飞股份有限公司
+      <br>
+      皖ICP备05001217号-71 ·
+      <a href="#" style="display:inline-flex; align-items:center; gap:4px">
+        <span>🔒</span> 皖公网安备 34019202000117号
+      </a> ·
+      安徽省合肥市高新区科创路666号
+    </div>
+  </div>
+</footer>
+
+
+<div class="modal" id="applyModal" onclick="if(event.target===this)closeModal()">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <h2 class="modal-title">申请体验</h2>
+    <p class="modal-desc">填写以下信息，我们将在 1 个工作日内完成审核并开通体验账号</p>
+    <form id="applyForm" onsubmit="return submitForm(event)">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">企业名称 <span class="required">*</span></label>
+          <input type="text" class="form-input" name="company" required placeholder="请输入企业全称">
+        </div>
+        <div class="form-group">
+          <label class="form-label">姓名 <span class="required">*</span></label>
+          <input type="text" class="form-input" name="name" required placeholder="请输入您的姓名">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">手机号 <span class="required">*</span></label>
+          <input type="tel" class="form-input" name="phone" required pattern="1[3-9]\d{9}" placeholder="请输入 11 位手机号">
+        </div>
+        <div class="form-group">
+          <label class="form-label">职位 <span class="required">*</span></label>
+          <input type="text" class="form-input" name="position" required placeholder="如：招商局副局长">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">城市 <span class="required">*</span></label>
+        <input type="text" class="form-input" name="city" required list="cityList" placeholder="请输入或选择城市">
+        <datalist id="cityList">
+          <option>北京市</option><option>上海市</option><option>天津市</option><option>重庆市</option>
+          <option>合肥市</option><option>芜湖市</option><option>杭州市</option><option>宁波市</option>
+          <option>南京市</option><option>苏州市</option><option>广州市</option><option>深圳市</option>
+          <option>成都市</option><option>武汉市</option><option>西安市</option><option>郑州市</option>
+        </datalist>
+      </div>
+      <div class="form-group">
+        <label class="form-label">主要使用场景（可多选）</label>
+        <div class="checkbox-group">
+          <label class="checkbox-label">
+            <input type="checkbox" name="scene" value="政府招商部门"> 政府招商部门 - 年度招商目标拆解、重点产业专题研究
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" name="scene" value="产业园区"> 产业园区 - 园区产业定位、存量企业梯度培育
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" name="scene" value="产业研究机构"> 产业研究机构 - 产业链课题研究、区域竞争力对比
+          </label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">补充说明</label>
+        <textarea class="form-textarea" name="note" rows="2" placeholder="请简要描述您的具体需求或关注的产业方向"></textarea>
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary" style="width:100%">提交申请</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+// 顶栏滚动吸顶态
+(function(){
+  var h=document.querySelector('.header');
+  if(!h) return;
+  var tick=false;
+  function upd(){
+    if(window.scrollY>10){h.classList.add('scrolled')}else{h.classList.remove('scrolled')}
+    tick=false;
+  }
+  window.addEventListener('scroll',function(){
+    if(!tick){tick=true; window.requestAnimationFrame(upd)}
+  },{passive:true});
+  upd();
+})();
+
+function openModal(){document.getElementById('applyModal').classList.add('active')}
+function closeModal(){document.getElementById('applyModal').classList.remove('active')}
+
+// ---------- 留资数据层（与后台管理共用协议） ----------
+var ZY_STORE='zhiyan_leads';
+
+function zyReadLeads(){
+  try{
+    var raw=localStorage.getItem(ZY_STORE);
+    var arr=raw?JSON.parse(raw):[];
+    return Array.isArray(arr)?arr:[];
+  }catch(err){
+    console.warn('留资数据解析失败，已按空列表处理',err);
+    return [];
+  }
+}
+
+function zyNewId(){
+  // 时间戳 + 随机串，避免同一毫秒内重复
+  return 'L'+Date.now().toString(36)+Math.random().toString(36).slice(2,8);
+}
+
+function submitForm(e){
+  e.preventDefault();
+  var form=e.target;
+  var btn=form.querySelector('button[type="submit"]');
+
+  var phone=form.phone.value.trim();
+  if(!/^1[3-9]\d{9}$/.test(phone)){
+    alert('请填写正确的 11 位手机号');
+    form.phone.focus();
+    return false;
+  }
+
+  var data={
+    id:zyNewId(),
+    company:form.company.value.trim(),
+    name:form.name.value.trim(),
+    phone:phone,
+    position:form.position.value.trim(),
+    city:form.city.value.trim(),
+    scenes:Array.from(form.querySelectorAll('input[name="scene"]:checked')).map(function(c){return c.value}),
+    note:form.note.value.trim(),
+    status:'pending',          // pending | contacted | approved | rejected
+    remark:'',                 // 后台跟进备注
+    time:new Date().toISOString(),
+    updatedAt:new Date().toISOString(),
+    source:'官网落地页'
+  };
+
+  var leads=zyReadLeads();
+
+  // 同一手机号 10 分钟内重复提交视为误触
+  var dup=leads.filter(function(l){
+    return l.phone===data.phone && (Date.now()-new Date(l.time).getTime())<600000;
+  })[0];
+  if(dup){
+    alert('该手机号刚刚已提交过申请，我们会尽快与您联系。');
+    closeModal();
+    return false;
+  }
+
+  leads.unshift(data);
+
+  try{
+    localStorage.setItem(ZY_STORE,JSON.stringify(leads));
+  }catch(err){
+    console.error('留资写入失败',err);
+    alert('提交失败：本地存储空间不足或被浏览器限制，请稍后重试或直接邮件联系我们。');
+    return false;
+  }
+
+  // 通知已打开的后台页面即时刷新（同源多标签）
+  try{
+    localStorage.setItem('zhiyan_leads_ping',data.id+'@'+Date.now());
+  }catch(err){/* 忽略：仅用于跨标签提醒 */}
+
+  if(btn){btn.disabled=true; btn.textContent='已提交 ✓'}
+  alert('申请已提交！我们将在 1 个工作日内与您联系。');
+  closeModal();
+  form.reset();
+  setTimeout(function(){ if(btn){btn.disabled=false; btn.textContent='提交申请'} },1200);
+  return false;
+}
+</script>
+
+</body>
+</html>
