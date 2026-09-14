@@ -212,6 +212,13 @@ html{scroll-behavior:smooth; scroll-padding-top:88px}
   86%{opacity:.95}
   100%{stroke-dashoffset:0; opacity:0}
 }
+.nw-flow-in{stroke:#20B486}
+.nw-flow-out{stroke:#F06B78; animation-name:nwFlowOut}
+@keyframes nwFlowOut{0%{stroke-dashoffset:0; opacity:0}12%{opacity:.92}86%{opacity:.92}100%{stroke-dashoffset:164; opacity:0}}
+.nw-move-summary{position:absolute; right:20px; bottom:18px; display:flex; gap:8px; z-index:2}
+.nw-move-chip{min-width:88px; padding:8px 10px; border-radius:10px; border:1px solid rgba(46,126,255,.14); background:rgba(255,255,255,.88); backdrop-filter:blur(6px)}
+.nw-move-chip span,.nw-move-chip b{display:block}.nw-move-chip span{font-size:11px; color:var(--gray-500)}.nw-move-chip b{margin-top:2px; font-size:17px; line-height:1.15; color:#15986D}.nw-move-chip.out b{color:#E65361}.nw-move-chip.net b{color:var(--blue-700)}
+@media (max-width:768px){.nw-move-summary{position:static; margin:0 14px 14px; flex-wrap:wrap}.nw-move-chip{flex:1}.nw-badge{right:14px;top:14px}}
 .nw-dot{
   fill:#2E7EFF; stroke:#fff; stroke-width:1.6;
   animation:nwDot 2.6s ease-in-out infinite;
@@ -305,6 +312,19 @@ html{scroll-behavior:smooth; scroll-padding-top:88px}
   padding:4px 12px; border-radius:6px; background:#fff;
   border:1px solid var(--gray-200); font-size:14px; color:var(--gray-700);
 }
+/* ---------- model engines ---------- */
+.model-heading{margin-top:48px; font-size:22px; font-weight:900; color:var(--gray-900)}
+.model-heading span{display:block; margin-top:6px; font-size:14px; font-weight:600; letter-spacing:.08em; color:var(--blue-600)}
+.model-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:20px; margin-top:22px}
+.model-card{position:relative; overflow:hidden; min-height:222px; padding:26px 22px; border-radius:16px; border:1px solid rgba(46,126,255,.18); background:linear-gradient(145deg,#fff,#F2F7FF); box-shadow:0 8px 24px rgba(46,126,255,.08)}
+.model-card::after{content:""; position:absolute; width:128px; height:128px; right:-52px; bottom:-52px; border-radius:50%; background:radial-gradient(circle,rgba(46,126,255,.20),transparent 68%); pointer-events:none}
+.model-number{display:inline-grid; place-items:center; width:32px; height:32px; border-radius:9px; background:var(--blue-600); color:#fff; font-size:13px; font-weight:900; margin-bottom:20px}
+.model-card h3{position:relative; z-index:1; min-height:58px; margin:0 0 12px; font-size:19px; line-height:1.48; color:var(--gray-900)}
+.model-card p{position:relative; z-index:1; margin:0; color:var(--gray-600); font-size:14px; line-height:1.75}
+.model-tags{position:relative; z-index:1; display:flex; flex-wrap:wrap; gap:6px; margin-top:16px}
+.model-tags span{padding:3px 8px; border-radius:999px; background:#fff; border:1px solid var(--blue-200); color:var(--blue-700); font-size:12px}
+@media (max-width:960px){.model-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.model-grid{grid-template-columns:1fr}.model-card{min-height:0}.model-card h3{min-height:0}}
 /* ---------- modal ---------- */
 .modal{
   display:none; position:fixed; inset:0; z-index:9999;
@@ -785,9 +805,20 @@ html{scroll-behavior:smooth; scroll-padding-top:88px}
     <h2 class="section-title">汇聚全国优质企业</h2>
     <p class="section-desc">覆盖全国 34 个省级行政区，超 6000 万家企业主体数据，按产业链环节精准定位招引目标</p>
     <div class="nw-mapwrap">
-      <img src="nationwide-map.png" alt="全国优质企业汇聚地图" class="nw-map-img" style="width:100%; height:auto; border-radius:12px; box-shadow:0 8px 24px rgba(46,126,255,.12)"/>
-    </div>
-    <div class="nw-stats">
+      <span class="nw-badge">企业迁入迁出 · 实时洞察</span>
+      <svg class="nw-map" viewBox="0 0 1200 640" role="img" aria-label="全国企业迁入迁出动态流向图">
+        <defs><linearGradient id="nwLand" x1="120" y1="80" x2="1010" y2="550" gradientUnits="userSpaceOnUse"><stop stop-color="#D9E9FF"/><stop offset="1" stop-color="#EFE4FF"/></linearGradient><linearGradient id="nwFlowGrad" x1="250" y1="100" x2="950" y2="540" gradientUnits="userSpaceOnUse"><stop stop-color="#20B486"/><stop offset="1" stop-color="#2E7EFF"/></linearGradient><radialGradient id="nwHubGrad"><stop stop-color="#9ED1FF"/><stop offset="1" stop-color="#1366F0"/></radialGradient></defs>
+        <path class="nw-landfill" d="M158 202 L217 151 315 159 365 119 445 145 505 116 585 145 645 113 709 159 780 141 839 183 928 173 1003 224 975 278 1028 330 987 385 918 402 866 464 782 458 721 511 649 488 583 535 510 505 449 535 389 495 309 502 254 455 196 444 174 386 126 347 150 292 120 246 Z"/>
+        <path class="nw-flow nw-flow-in" style="--i:1" d="M888 236 Q764 188 630 292"/><path class="nw-flow nw-flow-in" style="--i:2" d="M856 413 Q761 369 630 292"/><path class="nw-flow nw-flow-in" style="--i:3" d="M622 477 Q604 388 630 292"/><path class="nw-flow nw-flow-in" style="--i:4" d="M950 336 Q793 305 630 292"/>
+        <path class="nw-flow nw-flow-out" style="--i:5" d="M630 292 Q506 339 404 416"/><path class="nw-flow nw-flow-out" style="--i:6" d="M630 292 Q489 221 348 248"/><path class="nw-flow nw-flow-out" style="--i:7" d="M630 292 Q688 219 752 202"/>
+        <g aria-hidden="true"><circle class="nw-ring" cx="630" cy="292" r="18"/><circle class="nw-ring r2" cx="630" cy="292" r="18"/><circle class="nw-core" cx="630" cy="292" r="15"/></g>
+        <g><circle class="nw-dot" style="--i:1" cx="348" cy="248" r="9"/><circle class="nw-dot" style="--i:2" cx="888" cy="236" r="9"/><circle class="nw-dot" style="--i:3" cx="856" cy="413" r="9"/><circle class="nw-dot" style="--i:4" cx="404" cy="416" r="9"/><circle class="nw-dot" style="--i:5" cx="622" cy="477" r="9"/><circle class="nw-dot" style="--i:6" cx="950" cy="336" r="9"/><circle class="nw-dot" style="--i:7" cx="512" cy="185" r="9"/><circle class="nw-dot" style="--i:8" cx="752" cy="202" r="9"/></g>
+        <g fill="#42607E" font-size="17" font-weight="600"><text x="315" y="227">成渝</text><text x="863" y="215">京津冀</text><text x="878" y="443">长三角</text><text x="374" y="445">西部</text><text x="584" y="511">粤港澳</text><text x="917" y="367">沿海产业带</text><text x="596" y="263">本地园区</text></g>
+        <text x="72" y="82" fill="#1366F0" font-size="18" font-weight="800" letter-spacing="2">ENTERPRISE MOBILITY NETWORK</text><text x="72" y="111" fill="#6B7280" font-size="15">迁入企业沿绿色流线汇聚，迁出企业沿红色流线向外流动</text>
+      </svg>
+      <div class="nw-legend"><span class="nw-lg"><i class="nw-lg-hub"></i>本地产业承载中心</span><span class="nw-lg"><i class="nw-lg-dot"></i>重点来源/去向区域</span><span class="nw-lg"><i class="nw-lg-line"></i>动态迁移流向</span></div>
+      <div class="nw-move-summary"><div class="nw-move-chip"><span>本月迁入企业</span><b>28 家</b></div><div class="nw-move-chip out"><span>本月迁出企业</span><b>11 家</b></div><div class="nw-move-chip net"><span>企业净迁入</span><b>+17 家</b></div></div>
+    </div><div class="nw-stats">
       <div class="nw-stat"><b>6000 万+</b><span>企业主体</span></div>
       <div class="nw-stat"><b>34 个</b><span>省级行政区</span></div>
       <div class="nw-stat"><b>4300 万+</b><span>高成长企业</span></div>
@@ -828,6 +859,13 @@ html{scroll-behavior:smooth; scroll-padding-top:88px}
       <span style="padding:8px 16px; background:var(--blue-50); border:1px solid var(--blue-200); border-radius:6px; color:var(--blue-700); font-weight:500">统计</span>
       <span style="padding:8px 16px; background:var(--blue-50); border:1px solid var(--blue-200); border-radius:6px; color:var(--blue-700); font-weight:500">海关</span>
     </div>
+        <div class="model-heading">四大模型引擎<span>MODEL ENGINES · 让数据转化为招商决策能力</span></div>
+    <div class="model-grid">
+      <article class="model-card"><span class="model-number">01</span><h3>产业链构建及强弱分析模型</h3><p>自动构建产业链图谱，识别关键环节、缺失链条与区域竞争优势。</p><div class="model-tags"><span>产业图谱</span><span>强弱研判</span></div></article>
+      <article class="model-card"><span class="model-number">02</span><h3>招商多因子评估模型</h3><p>融合规模、技术、资本、迁移信号与产业适配度，筛选高价值目标。</p><div class="model-tags"><span>企业评分</span><span>线索排序</span></div></article>
+      <article class="model-card"><span class="model-number">03</span><h3>政策匹配引擎</h3><p>将政策条款结构化解析，与企业画像实时比对并生成匹配建议。</p><div class="model-tags"><span>政策解析</span><span>精准匹配</span></div></article>
+      <article class="model-card"><span class="model-number">04</span><h3>企业尽调引擎</h3><p>整合工商、司法、财务与舆情等多源信号，输出可追溯研判结论。</p><div class="model-tags"><span>风险预警</span><span>尽调报告</span></div></article>
+    </div>
     <p style="text-align:center; margin-top:24px; color:var(--gray-600); font-size:14px">
       星火大模型 · 产业知识增强 · 政务级私有化部署 · 数据不出域
     </p>
@@ -838,7 +876,7 @@ html{scroll-behavior:smooth; scroll-padding-top:88px}
 <section class="section" id="scene">
   <div class="container">
     <div class="section-label">USE CASES · 应用场景</div>
-    <h2 class="section-title">典型业务场景</h2>
+    <h2 class="section-title">典型应用场景</h2>
     <p class="section-desc">从线索发现到招商落地，全流程数字化支撑</p>
 
     <!-- 场景1：产业运行监测 -->
